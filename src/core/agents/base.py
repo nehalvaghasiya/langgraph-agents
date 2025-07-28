@@ -8,6 +8,7 @@ class AgentState(TypedDict):
     messages: list
 
 class BaseAgent:
+    """Base agent for langgraph agents."""
     def __init__(self, model: BaseChatModel, tools: list, system: str = ""):
         self.system = system
         graph = StateGraph(AgentState)
