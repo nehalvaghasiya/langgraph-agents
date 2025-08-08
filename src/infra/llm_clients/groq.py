@@ -2,6 +2,7 @@ from langchain_openai import ChatOpenAI
 from core.utils.env import get_env
 
 def get_llm():
+    """Return instance of langchain ChatOpenAI"""
     return ChatOpenAI(
         model_name="moonshotai/kimi-k2-instruct",
         temperature=0.7,
