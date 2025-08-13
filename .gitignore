@@ -74,6 +74,7 @@ out/
 
 # Cache
 .cache/
+workspace
 
 # Temporary files
 *.tmp
