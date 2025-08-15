@@ -2,7 +2,7 @@ from langchain_core.tools import tool
 from typing import Annotated, Dict, List, Optional
 from pathlib import Path
 
-WORKING_DIRECTORY = Path("./workspace")
+WORKING_DIRECTORY = Path("../workspace")
 WORKING_DIRECTORY.mkdir(parents=True, exist_ok=True)
 
 @tool
