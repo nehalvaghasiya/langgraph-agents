@@ -52,6 +52,12 @@ source .venv/bin/activate       # Windows: .venv\Scripts\activate
 pip install -r requirements.txt
 ```
 
+> **OpenAI users:** Don’t forget to export your OpenAI key before running:
+>
+> ```bash
+> export OPENAI_API_KEY="..."
+> ```
+
 > **Groq users:** Don’t forget to export your Groq key before running:
 >
 > ```bash
