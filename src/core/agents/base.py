@@ -5,6 +5,7 @@ from langchain_core.messages import ToolMessage, SystemMessage
 from langchain_core.language_models import BaseChatModel
 
 class AgentState(TypedDict):
+    """AgentState to store messages."""
     messages: list
 
 class BaseAgent:
