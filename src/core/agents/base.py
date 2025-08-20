@@ -27,6 +27,7 @@ class BaseAgent:
         self.model = model.bind_tools(tools)
 
     def exists_action(self, state: AgentState):
+        """Check if action exists."""
         result = state['messages'][-1]
         return len(result.tool_calls) > 0
 
