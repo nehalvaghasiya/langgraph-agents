@@ -17,12 +17,14 @@ class PaperWritingTeamAgent:
     def __init__(self, model):
         """Initialized the Agent for Paper Writing Team."""
         self.model = model
+        
         # Define members as sub-agents
         self.doc_writer = DocWriterAgent(model)
         self.note_taker = NoteTakerAgent(model)
         self.chart_generator = ChartGeneratorAgent(model)
         self.members = ["doc_writer", "note_taker", "chart_generator"]
         self.supervisor = SupervisorAgent(model, self.members)
+        
         # Build team graph
         graph = StateGraph(SupervisorState)  # Use SupervisorState from your code
         graph.add_node("supervisor", self.supervisor_node)
@@ -30,6 +32,7 @@ class PaperWritingTeamAgent:
         graph.add_node("note_taker", self.note_taker_node)
         graph.add_node("chart_generator", self.chart_generator_node)
         graph.add_edge(START, "supervisor")
+        
         # Conditional edges would be added based on supervisor routing (adapt from make_supervisor_node)
         self.graph = graph.compile()
 
