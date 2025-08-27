@@ -13,6 +13,7 @@ from core.supervisor import State as SupervisorState, make_supervisor_node
 
 
 class PaperWritingTeamAgent:
+    """Agent for Paper Writing Team."""
     def __init__(self, model):
         self.model = model
         # Define members as sub-agents
