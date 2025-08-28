@@ -42,6 +42,7 @@ class PaperWritingTeamAgent:
         return make_supervisor_node(self.model, self.members)(state)
 
     def doc_writer_node(self, state: SupervisorState) -> Command[Literal["supervisor"]]:
+        """Create a node for writing doc."""
         result = self.doc_writer.graph.invoke(state)
         return Command(update={"messages": [HumanMessage(content=result["messages"][-1].content, name="doc_writer")]}, goto="supervisor")
 
