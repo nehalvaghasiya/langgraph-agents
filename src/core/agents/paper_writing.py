@@ -47,6 +47,7 @@ class PaperWritingTeamAgent:
         return Command(update={"messages": [HumanMessage(content=result["messages"][-1].content, name="doc_writer")]}, goto="supervisor")
 
     def note_taker_node(self, state: SupervisorState) -> Command[Literal["supervisor"]]:
+        """Create a node for taking Note."""
         result = self.note_taker.graph.invoke(state)
         return Command(update={"messages": [HumanMessage(content=result["messages"][-1].content, name="note_taker")]}, goto="supervisor")
 
