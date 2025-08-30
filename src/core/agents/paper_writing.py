@@ -52,5 +52,6 @@ class PaperWritingTeamAgent:
         return Command(update={"messages": [HumanMessage(content=result["messages"][-1].content, name="note_taker")]}, goto="supervisor")
 
     def chart_generator_node(self, state: SupervisorState) -> Command[Literal["supervisor"]]:
+        """Create a node for generating chart."""
         result = self.chart_generator.graph.invoke(state)
         return Command(update={"messages": [HumanMessage(content=result["messages"][-1].content, name="chart_generator")]}, goto="supervisor")
