@@ -26,6 +26,7 @@ class RagAgent:
         self.retriever_tool = create_retriever_tool(
             retriever, "retrieve_blog_posts", "Search and return information about Lilian Weng blog posts."
         )
+        
         # Build the graph (mirroring your workflow)
         from langgraph.graph import MessagesState, StateGraph, START, END
         workflow = StateGraph(MessagesState)
