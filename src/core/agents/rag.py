@@ -12,6 +12,7 @@ from core.prompts.rag import RAGPrompts
 class RagAgent:
     """Class for RAG agent."""
     def __init__(self, model, doc_splits):
+        """Initialized RAG agent."""
         self.model = model
         
         model_kwargs = {'device': 'cuda', 'trust_remote_code': True}
