@@ -10,6 +10,7 @@ from pydantic import BaseModel, Field
 from core.prompts.rag import RAGPrompts
 
 class RagAgent:
+    """Class for RAG agent."""
     def __init__(self, model, doc_splits):
         self.model = model
         
