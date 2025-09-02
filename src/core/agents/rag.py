@@ -44,6 +44,7 @@ class RagAgent:
         self.graph = workflow.compile()
 
     def generate_query_or_respond(self, state):
+        """Generate query or respond."""
         response = self.model.bind_tools([self.retriever_tool]).invoke(state["messages"])
         return {"messages": [response]}
 
