@@ -49,6 +49,7 @@ class RagAgent:
         return {"messages": [response]}
 
     class GradeDocuments(BaseModel):
+        """Pydantic structure for Grade Documents."""
         binary_score: str = Field(description="Relevance score: 'yes' if relevant, or 'no' if not relevant")
 
     def grade_documents(self, state) -> Literal["generate_answer", "rewrite_question"]:
