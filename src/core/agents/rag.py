@@ -53,6 +53,7 @@ class RagAgent:
         binary_score: str = Field(description="Relevance score: 'yes' if relevant, or 'no' if not relevant")
 
     def grade_documents(self, state) -> Literal["generate_answer", "rewrite_question"]:
+        """Grade documents to generate answer or rewrite question."""
         question = state["messages"][0].content
         context = state["messages"][-1].content
         prompt = RAGPrompts.GRADE_PROMPT.format(question=question, context=context)
