@@ -61,6 +61,7 @@ class RagAgent:
         return "generate_answer" if response.binary_score == "yes" else "rewrite_question"
 
     def rewrite_question(self, state):
+        """Rewrite question using LLM."""
         messages = state["messages"]
         question = messages[0].content
         prompt = RAGPrompts.REWRITE_PROMPT.format(question=question)
