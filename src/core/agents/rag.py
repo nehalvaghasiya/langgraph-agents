@@ -69,6 +69,7 @@ class RagAgent:
         return {"messages": [{"role": "user", "content": response.content}]}
 
     def generate_answer(self, state):
+        """Generate answer using LLM."""
         question = state["messages"][0].content
         context = state["messages"][-1].content
         prompt = RAGPrompts.GENERATE_PROMPT.format(question=question, context=context)
