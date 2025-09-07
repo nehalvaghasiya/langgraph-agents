@@ -13,6 +13,7 @@ from core.supervisor import State as SupervisorState, make_supervisor_node
 class ResearchTeamAgent:
     """Class for Agent of Research Team."""
     def __init__(self, model):
+        """Initialize ResearchTeamAgent."""
         self.model = model
         self.search = SearchAgent(model)
         self.web_scraper = WebScraperAgent(model)
