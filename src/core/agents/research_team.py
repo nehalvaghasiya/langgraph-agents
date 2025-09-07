@@ -27,6 +27,7 @@ class ResearchTeamAgent:
         self.graph = graph.compile()
 
     def supervisor_node(self, state: SupervisorState) -> Command[Literal["search", "web_scraper", "FINISH"]]:
+        """Create Supervisor node."""
         return make_supervisor_node(self.model, self.members)(state)
 
     def search_node(self, state: SupervisorState) -> Command[Literal["supervisor"]]:
