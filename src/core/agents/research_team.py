@@ -31,6 +31,7 @@ class ResearchTeamAgent:
         return make_supervisor_node(self.model, self.members)(state)
 
     def search_node(self, state: SupervisorState) -> Command[Literal["supervisor"]]:
+        """Create search node."""
         result = self.search.graph.invoke(state)
         return Command(update={"messages": [HumanMessage(content=result["messages"][-1].content, name="search")]}, goto="supervisor")
 
