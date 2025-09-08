@@ -36,5 +36,6 @@ class ResearchTeamAgent:
         return Command(update={"messages": [HumanMessage(content=result["messages"][-1].content, name="search")]}, goto="supervisor")
 
     def web_scraper_node(self, state: SupervisorState) -> Command[Literal["supervisor"]]:
+        """Create Web scraper node."""
         result = self.web_scraper.graph.invoke(state)
         return Command(update={"messages": [HumanMessage(content=result["messages"][-1].content, name="web_scraper")]}, goto="supervisor")
