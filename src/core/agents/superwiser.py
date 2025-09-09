@@ -2,6 +2,7 @@ from core.agents.base import BaseAgent
 
 
 class SupervisorAgent(BaseAgent):
+    """Class for Supervisor Agent."""
     def __init__(self, model, members: list[str], system: str = ""):
         # Members are treated as "tools" (sub-agents)
         self.members = members
