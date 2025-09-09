@@ -12,6 +12,7 @@ class SupervisorAgent(BaseAgent):
         super().__init__(model, member_tools, system)
 
     def create_member_tool(self, member: str):
+        """Create member tool that invokes a sub-agent."""
         # Dummy tool that invokes a sub-agent (you'd replace with actual sub-agent invocation)
         def member_tool(args):
             print(f"Routing to member: {member}")
