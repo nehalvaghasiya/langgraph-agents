@@ -6,6 +6,7 @@ from typing_extensions import TypedDict
 
 
 class State(MessagesState):
+    """State for Graph execution."""
     next: str
 
 
