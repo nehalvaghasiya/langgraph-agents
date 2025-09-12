@@ -11,6 +11,7 @@ class State(MessagesState):
 
 
 def make_supervisor_node(llm: BaseChatModel, members: list[str]) -> str:
+    """Make supervisor node."""
     options = ["FINISH"] + members
     system_prompt = (
         "You are a supervisor tasked with managing a conversation between the"
