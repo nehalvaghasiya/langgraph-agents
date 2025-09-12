@@ -8,6 +8,7 @@ from langchain_core.messages import HumanMessage
 from langchain_community.document_loaders import WebBaseLoader
 from langchain_text_splitters import RecursiveCharacterTextSplitter
 
+# Get LLM instance
 llm = get_llm()
 
 # For Doc Writer agent
