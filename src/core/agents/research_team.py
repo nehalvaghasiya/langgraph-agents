@@ -1,4 +1,4 @@
-from core.agents.superwiser import SupervisorAgent
+from core.agents.supervisor import SupervisorAgent
 from core.agents.web_scraper import WebScraperAgent
 from core.agents.web_search import SearchAgent
 
