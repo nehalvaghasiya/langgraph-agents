@@ -7,7 +7,7 @@ from langgraph.types import Command
 from core.agents.chart_generator import ChartGeneratorAgent
 from core.agents.doc_writer import DocWriterAgent
 from core.agents.note_taker import NoteTakerAgent
-from core.agents.superwiser import SupervisorAgent
+from core.agents.supervisor import SupervisorAgent
 
 from core.supervisor import State as SupervisorState, make_supervisor_node
 
