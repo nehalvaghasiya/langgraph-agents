@@ -38,3 +38,10 @@ dev = [
     "basedpyright>=1.29.1",
     "funlog>=0.2.1",
 ]
+
+
+# ---- Settings ----
+
+[tool.ruff]
+# Set as desired, typically 88 (black standard) or 100 (wide).
+line-length = 100
