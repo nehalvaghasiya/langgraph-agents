@@ -37,6 +37,13 @@ class BaseAgent:
         >>> result = agent.graph.invoke({"messages": [HumanMessage("Hello")]})
     """
     def __init__(self, model: BaseChatModel, tools: list, system: str = ""):
+        """Initialize the BaseAgent with model, tools, and optional system message.
+        
+        Args:
+            model (BaseChatModel): The language model to use for generating responses.
+            tools (list): List of tools available to the agent.
+            system (str, optional): System message/prompt for the agent. Defaults to "".
+        """
         self.system = system
         graph = StateGraph(AgentState)
         graph.add_node("llm", self.call_model)
