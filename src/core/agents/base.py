@@ -6,10 +6,11 @@ from langchain_core.language_models import BaseChatModel
 
 class AgentState(TypedDict):
     """AgentState to store messages.
-
+    
+    A TypedDict that defines the state structure for the agent graph.
+    
     Attributes:
-        messages: Ordered list of chat messages forming the evolving conversation
-            state, including human, AI, and tool messages.
+        messages (list): A list of messages representing the conversation history.
     """
     messages: list
 
