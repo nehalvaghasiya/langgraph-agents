@@ -75,7 +75,19 @@ class BaseAgent:
         result = state['messages'][-1]
         return len(result.tool_calls) > 0
 
-    def call_model(self, state: AgentState):
+    def call_model(self, state: AgentState) -> dict:
+        """Call the language model with the current state.
+        
+        Invokes the language model with the conversation history, optionally
+        prepending a system message if one was provided during initialization.
+        
+        Args:
+            state (AgentState): The current agent state containing messages.
+            
+        Returns:
+            dict: Dictionary containing the new message from the model in a list
+                  under the 'messages' key.
+        """
         messages = state['messages']
         if self.system:
             messages = [SystemMessage(content=self.system)] + messages
