@@ -59,7 +59,18 @@ class BaseAgent:
         self.tools = {t.name: t for t in tools}
         self.model = model.bind_tools(tools)
 
-    def exists_action(self, state: AgentState):
+    def exists_action(self, state: AgentState) -> bool:
+        """Check if action exists.
+        
+        Determines whether the last message in the state contains tool calls
+        that need to be executed.
+        
+        Args:
+            state (AgentState): The current agent state containing messages.
+            
+        Returns:
+            bool: True if tool calls exist in the last message, False otherwise.
+        """
         """Check if action exists."""
         result = state['messages'][-1]
         return len(result.tool_calls) > 0
