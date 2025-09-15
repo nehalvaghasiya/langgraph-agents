@@ -5,7 +5,12 @@ from langchain_core.messages import ToolMessage, SystemMessage
 from langchain_core.language_models import BaseChatModel
 
 class AgentState(TypedDict):
-    """AgentState to store messages."""
+    """AgentState to store messages.
+
+    Attributes:
+        messages: Ordered list of chat messages forming the evolving conversation
+            state, including human, AI, and tool messages.
+    """
     messages: list
 
 class BaseAgent:
