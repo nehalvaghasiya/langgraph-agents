@@ -94,7 +94,23 @@ class BaseAgent:
         message = self.model.invoke(messages)
         return {'messages': [message]}
 
-    def take_action(self, state: AgentState):
+    def take_action(self, state: AgentState) -> dict:
+        """Take action by executing tool calls.
+        
+        Processes tool calls from the last message in the state, executes each tool,
+        and returns the results as ToolMessage objects.
+        
+        Args:
+            state (AgentState): The current agent state containing messages with tool calls.
+            
+        Returns:
+            dict: Dictionary containing a list of ToolMessage objects under the 'messages' key,
+                  each representing the result of a tool execution.
+                  
+        Note:
+            If a tool name is not found in available tools, returns an error message
+            instead of executing the tool.
+        """
         tool_calls = state['messages'][-1].tool_calls
         results = []
         for t in tool_calls:
