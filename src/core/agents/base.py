@@ -15,7 +15,27 @@ class AgentState(TypedDict):
     messages: list
 
 class BaseAgent:
-    """Base agent for langgraph agents."""
+    """Base agent for langgraph agents.
+    
+    A base class for creating LangGraph agents with tool integration capabilities.
+    This class sets up a state graph with LLM and action nodes, handles tool calls,
+    and manages the conversation flow.
+    
+    Attributes:
+        system (str): System message/prompt for the agent.
+        graph: Compiled LangGraph state graph.
+        tools (dict): Dictionary mapping tool names to tool objects.
+        model: Language model bound with available tools.
+    
+    Example:
+        >>> from langchain_openai import ChatOpenAI
+        >>> from langchain.tools import Tool
+        >>> 
+        >>> model = ChatOpenAI()
+        >>> tools = [some_tool]
+        >>> agent = BaseAgent(model, tools, "You are a helpful assistant")
+        >>> result = agent.graph.invoke({"messages": [HumanMessage("Hello")]})
+    """
     def __init__(self, model: BaseChatModel, tools: list, system: str = ""):
         self.system = system
         graph = StateGraph(AgentState)
