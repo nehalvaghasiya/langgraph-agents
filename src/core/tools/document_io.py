@@ -58,7 +58,17 @@ def write_document(
     content: Annotated[str, "Text content to be written into the document."],
     file_name: Annotated[str, "File path to save the document."],
 ) -> Annotated[str, "Path of the saved document file."]:
-    """Create and save a text document."""
+    """Create and save a text document.
+
+    Writes the given text content to a file in the working directory.
+
+    Args:
+        content (Annotated[str]): Text content to be written into the document.
+        file_name (Annotated[str]): File path to save the document inside the workspace.
+
+    Returns:
+        Annotated[str]: Path of the saved document file.
+    """
     full_path = WORKING_DIRECTORY / file_name
     with full_path.open("w") as file:
         file.write(content)
