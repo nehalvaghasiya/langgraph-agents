@@ -84,8 +84,22 @@ def edit_document(
         "Dictionary where key is the line number (1-indexed) and value is the text to be inserted at that line.",
     ],
 ) -> Annotated[str, "Path of the edited document file."]:
-    """Edit a document by inserting text at specific line numbers."""
+    """Edit a document by inserting text at specific line numbers.
 
+    Reads a text document from the working directory, inserts specified text lines at
+    given positions indexed from 1, then writes back the edited content.
+
+    Args:
+        file_name (Annotated[str]): Path of the document to be edited inside the workspace.
+        inserts (Annotated[Dict[int, str]]): Dictionary where key is the line number (1-indexed)
+                                           and value is the text to be inserted at that line.
+
+    Returns:
+        Annotated[str]: Path of the edited document file.
+
+    Raises:
+        Returns an error message string if a specified line number is out of range.
+    """
     with (WORKING_DIRECTORY / file_name).open("r") as file:
         lines = file.readlines()
 
