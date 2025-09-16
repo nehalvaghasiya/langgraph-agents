@@ -10,7 +10,17 @@ def create_outline(
     points: Annotated[List[str], "List of main points or sections."],
     file_name: Annotated[str, "File path to save the outline."],
 ) -> Annotated[str, "Path of the saved outline file."]:
-    """Create and save an outline."""
+    """Create and save an outline.
+
+    Writes a numbered list of main points or sections to a text file in the working directory.
+
+    Args:
+        points (Annotated[List[str]]): List of main points or sections to be included in the outline.
+        file_name (Annotated[str]): File path to save the outline inside the workspace.
+
+    Returns:
+        Annotated[str]: Path of the saved outline file.
+    """
     with (WORKING_DIRECTORY / file_name).open("w") as file:
         for i, point in enumerate(points):
             file.write(f"{i + 1}. {point}\n")
