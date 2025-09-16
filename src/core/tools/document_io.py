@@ -33,7 +33,19 @@ def read_document(
     start: Annotated[Optional[int], "The start line. Default is 0"] = None,
     end: Annotated[Optional[int], "The end line. Default is None"] = None,
 ) -> str:
-    """Read the specified document."""
+    """Read the specified document.
+
+    Reads the content of a text file from the working directory,
+    optionally retrieving only a subset of lines specified by start and end.
+
+    Args:
+        file_name (Annotated[str]): File path to read the document from inside the workspace.
+        start (Annotated[Optional[int]], optional): The start line number (0-based). Defaults to None (start from first line).
+        end (Annotated[Optional[int]], optional): The end line number (0-based, exclusive). Defaults to None (to the end of file).
+
+    Returns:
+        str: The content of the specified document or section as a string.
+    """
     with (WORKING_DIRECTORY / file_name).open("r") as file:
         lines = file.readlines()
     if start is None:
