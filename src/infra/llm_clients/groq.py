@@ -17,13 +17,6 @@ def get_llm() -> ChatOpenAI:
         ValueError: If the provided API key is invalid or malformed.
         ConnectionError: If unable to connect to the Groq API endpoint.
 
-    Note:
-        - Requires OPENAI_API_KEY environment variable with a valid Groq API key
-        - Uses Groq's OpenAI-compatible endpoint (https://api.groq.com/openai/v1)
-        - Configured with temperature=0.7 for balanced creativity and consistency
-        - Limited to 4096 max tokens per response
-        - Model: moonshotai/kimi-k2-instruct for instruction-following capabilities
-
     Example:
         >>> llm = get_llm()
         >>> response = llm.invoke("What is machine learning?")
