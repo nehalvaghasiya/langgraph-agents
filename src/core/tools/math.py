@@ -30,11 +30,6 @@ def multiply_numbers(a: float, b: float) -> float:
 
     Returns:
         float: The product of the two input numbers (a * b).
-
-    Example:
-        >>> multiply_numbers(4.0, 2.5)
-        Multiplying 4.0 * 2.5 = 10.0
-        10.0
     """
     result = a * b
     print(f"Multiplying {a} * {b} = {result}")
