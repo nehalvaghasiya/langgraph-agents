@@ -4,14 +4,13 @@ from core.utils.env import get_env
 def get_llm() -> ChatOpenAI:
     """Return instance of langchain ChatOpenAI.
 
-    Creates and configures a ChatOpenAI instance using the Groq API endpoint
-    with the MoonshotAI Kimi K2 Instruct model. The function sets up the model
+    Creates and configures a ChatOpenAI instance. The function sets up the model
     with specific parameters for temperature, token limits, and API configuration.
 
     Returns:
         ChatOpenAI: A configured ChatOpenAI instance ready for text generation
-                   and conversation. The instance uses the Kimi K2 Instruct model
-                   via Groq's OpenAI-compatible API endpoint.
+                   and conversation. The instance uses the LLM
+                   via OpenAI-compatible API endpoint.
 
     Raises:
         KeyError: If the OPENAI_API_KEY environment variable is not found.
