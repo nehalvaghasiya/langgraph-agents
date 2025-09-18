@@ -1,7 +1,7 @@
 from langchain_openai import ChatOpenAI
 from core.utils.env import get_env
 
-def get_llm():
+def get_llm() -> ChatOpenAI:
     """Return instance of langchain ChatOpenAI.
 
     Creates and configures a ChatOpenAI instance using the Groq API endpoint
