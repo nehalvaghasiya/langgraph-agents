@@ -90,11 +90,28 @@ ignore = [
 # https://marketplace.visualstudio.com/items?itemName=detachhead.basedpyright
 # https://docs.basedpyright.com/latest/configuration/config-files/#sample-pyprojecttoml-file
 include = ["src", "tests", "devtools"]
+
 # By default BasedPyright is very strict, so you almost certainly want to disable
 # some of the rules.
 # First, these turn off warnings about (yes) how you ignore warnings:
 reportIgnoreCommentWithoutRule = false
 reportUnnecessaryTypeIgnoreComment = false
+
+# Use "standard" instead of "strict" mode
+typeCheckingMode = "standard"
+
+# Disable third-party library warnings
+reportUnknownVariableType = "none"
+reportUnknownMemberType = "none"
+reportUnknownParameterType = "none"
+reportUnknownArgumentType = "none"
+reportUnknownLambdaType = "none"
+reportMissingParameterType = "information"  # Downgrade to info
+
+# Keep important checks enabled
+reportMissingImports = "error"
+reportUndefinedVariable = "error"
+
 # A few typically noisy warnings are next.
 # How many you enable is up to you. The first few are off by default, but you can
 # comment/uncomment these as desired:
