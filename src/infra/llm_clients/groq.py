@@ -31,7 +31,7 @@ def get_llm() -> ChatOpenAI:
         >>> print(response.content)
     """
     return ChatOpenAI(
-        model_name="moonshotai/kimi-k2-instruct",
+        model_name="moonshotai/kimi-k2-instruct-0905",
         temperature=0.7,
         max_tokens=4096,
         openai_api_key=get_env("OPENAI_API_KEY"),
