@@ -11,11 +11,6 @@ def add_numbers(a: float, b: float) -> float:
 
     Returns:
         float: The sum of the two input numbers (a + b).
-
-    Example:
-        >>> add_numbers(5.0, 3.2)
-        Adding 5.0 + 3.2 = 8.2
-        8.2
     """
     result = a + b
     print(f"Adding {a} + {b} = {result}")
