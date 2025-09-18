@@ -21,9 +21,6 @@ def add_numbers(a: float, b: float) -> float:
 def multiply_numbers(a: float, b: float) -> float:
     """Multiply two numbers together.
 
-    Performs multiplication of two floating-point numbers and prints the operation
-    to the console for verification and debugging purposes.
-
     Args:
         a (float): The first number to be multiplied.
         b (float): The second number to be multiplied.
