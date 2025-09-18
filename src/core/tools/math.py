@@ -19,7 +19,23 @@ def add_numbers(a: float, b: float) -> float:
 
 @tool
 def multiply_numbers(a: float, b: float) -> float:
-    """Multiply two numbers together."""
+    """Multiply two numbers together.
+
+    Performs multiplication of two floating-point numbers and prints the operation
+    to the console for verification and debugging purposes.
+
+    Args:
+        a (float): The first number to be multiplied.
+        b (float): The second number to be multiplied.
+
+    Returns:
+        float: The product of the two input numbers (a * b).
+
+    Example:
+        >>> multiply_numbers(4.0, 2.5)
+        Multiplying 4.0 * 2.5 = 10.0
+        10.0
+    """
     result = a * b
     print(f"Multiplying {a} * {b} = {result}")
     return result
