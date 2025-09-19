@@ -1,13 +1,15 @@
-from langchain_core.tools import tool
-from typing import Annotated, Dict, List, Optional
 from pathlib import Path
+from typing import Annotated
+
+from langchain_core.tools import tool
 
 WORKING_DIRECTORY = Path("../workspace")
 WORKING_DIRECTORY.mkdir(parents=True, exist_ok=True)
 
+
 @tool
 def create_outline(
-    points: Annotated[List[str], "List of main points or sections."],
+    points: Annotated[list[str], "List of main points or sections."],
     file_name: Annotated[str, "File path to save the outline."],
 ) -> Annotated[str, "Path of the saved outline file."]:
     """Create and save an outline.
@@ -30,8 +32,8 @@ def create_outline(
 @tool
 def read_document(
     file_name: Annotated[str, "File path to read the document from."],
-    start: Annotated[Optional[int], "The start line. Default is 0"] = None,
-    end: Annotated[Optional[int], "The end line. Default is None"] = None,
+    start: Annotated[int | None, "The start line. Default is 0"] = None,
+    end: Annotated[int | None, "The end line. Default is None"] = None,
 ) -> str:
     """Read the specified document.
 
@@ -80,7 +82,7 @@ def write_document(
 def edit_document(
     file_name: Annotated[str, "Path of the document to be edited."],
     inserts: Annotated[
-        Dict[int, str],
+        dict[int, str],
         "Dictionary where key is the line number (1-indexed) and value is the text to be inserted at that line.",
     ],
 ) -> Annotated[str, "Path of the edited document file."]:
