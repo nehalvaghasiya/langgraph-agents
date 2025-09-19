@@ -1,5 +1,7 @@
 from langchain_openai import ChatOpenAI
+
 from core.utils.env import get_env
+
 
 def get_llm() -> ChatOpenAI:
     """Return instance of langchain ChatOpenAI.
