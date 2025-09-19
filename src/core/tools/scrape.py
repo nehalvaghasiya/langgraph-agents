@@ -1,10 +1,9 @@
-from langchain_core.tools import tool
-from typing import List
 from langchain_community.document_loaders import WebBaseLoader
+from langchain_core.tools import tool
 
 
 @tool
-def scrape_webpages(urls: List[str]) -> str:
+def scrape_webpages(urls: list[str]) -> str:
     """Use requests and bs4 to scrape the provided web pages for detailed information.
 
     Scrapes content from multiple web pages using LangChain's WebBaseLoader, which
