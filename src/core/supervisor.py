@@ -1,12 +1,12 @@
 from langchain_core.language_models.chat_models import BaseChatModel
-
-from langgraph.graph import MessagesState, END
+from langgraph.graph import END, MessagesState
 from langgraph.types import Command
 from typing_extensions import TypedDict
 
 
 class State(MessagesState):
     """State for Graph execution."""
+
     next: str
 
 
