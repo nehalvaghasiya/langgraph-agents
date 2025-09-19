@@ -1,5 +1,6 @@
 class RAGPrompts:
     """Prompts for RAG application."""
+
     GRADE_PROMPT = (
         "You are a grader assessing relevance of a retrieved document to a user question. \n "
         "Here is the retrieved document: \n\n {context} \n\n"
