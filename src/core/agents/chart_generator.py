@@ -11,7 +11,7 @@ class ChartGeneratorAgent(BaseAgent):
     def __init__(
         self,
         model: BaseChatModel,
-        tools: list = [read_document, python_repl_tool],
+        tools: list = None,
         system: str = "",
     ):
         """Initialize Chart Generator Agent."""
@@ -19,4 +19,5 @@ class ChartGeneratorAgent(BaseAgent):
             system
             or "You are a chart generator. Use tools to read documents and generate charts with Python REPL. Don't ask follow-up questions."
         )
+        tools = [read_document, python_repl_tool]
         super().__init__(model, tools, system)
