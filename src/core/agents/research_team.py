@@ -1,17 +1,19 @@
+from typing import Literal
+
+from langchain_core.messages import HumanMessage
+from langgraph.graph import START, StateGraph
+from langgraph.types import Command
+
 from core.agents.supervisor import SupervisorAgent
 from core.agents.web_scraper import WebScraperAgent
 from core.agents.web_search import SearchAgent
-
-from typing import Literal
-from langgraph.graph import StateGraph, START
-from langchain_core.messages import HumanMessage
-from langgraph.types import Command
-
-from core.supervisor import State as SupervisorState, make_supervisor_node
+from core.supervisor import State as SupervisorState
+from core.supervisor import make_supervisor_node
 
 
 class ResearchTeamAgent:
     """Class for Agent of Research Team."""
+
     def __init__(self, model):
         """Initialize ResearchTeamAgent."""
         self.model = model
@@ -26,16 +28,30 @@ class ResearchTeamAgent:
         graph.add_edge(START, "supervisor")
         self.graph = graph.compile()
 
-    def supervisor_node(self, state: SupervisorState) -> Command[Literal["search", "web_scraper", "FINISH"]]:
+    def supervisor_node(
+        self, state: SupervisorState
+    ) -> Command[Literal["search", "web_scraper", "FINISH"]]:
         """Create Supervisor node."""
         return make_supervisor_node(self.model, self.members)(state)
 
     def search_node(self, state: SupervisorState) -> Command[Literal["supervisor"]]:
         """Create search node."""
         result = self.search.graph.invoke(state)
-        return Command(update={"messages": [HumanMessage(content=result["messages"][-1].content, name="search")]}, goto="supervisor")
+        return Command(
+            update={
+                "messages": [HumanMessage(content=result["messages"][-1].content, name="search")]
+            },
+            goto="supervisor",
+        )
 
     def web_scraper_node(self, state: SupervisorState) -> Command[Literal["supervisor"]]:
         """Create Web scraper node."""
         result = self.web_scraper.graph.invoke(state)
-        return Command(update={"messages": [HumanMessage(content=result["messages"][-1].content, name="web_scraper")]}, goto="supervisor")
+        return Command(
+            update={
+                "messages": [
+                    HumanMessage(content=result["messages"][-1].content, name="web_scraper")
+                ]
+            },
+            goto="supervisor",
+        )
