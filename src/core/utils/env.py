@@ -1,8 +1,10 @@
-from dotenv import load_dotenv
 import os
+
+from dotenv import load_dotenv
 
 # Load env variables
 load_dotenv()
+
 
 def get_env(key: str, default: str = "") -> str:
     """Get Env Variables.
