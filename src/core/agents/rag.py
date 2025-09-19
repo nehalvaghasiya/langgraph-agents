@@ -1,34 +1,41 @@
-
 from typing import Literal
-from langgraph.prebuilt import ToolNode, tools_condition
 
 from langchain.tools.retriever import create_retriever_tool
 from langchain_core.vectorstores import InMemoryVectorStore
 from langchain_huggingface.embeddings import HuggingFaceEmbeddings
+from langgraph.prebuilt import ToolNode, tools_condition
 from pydantic import BaseModel, Field
 
 from core.prompts.rag import RAGPrompts
 
+
 class RagAgent:
     """Class for RAG agent."""
+
     def __init__(self, model, doc_splits):
         """Initialized RAG agent."""
         self.model = model
-        
-        model_kwargs = {'device': 'cuda', 'trust_remote_code': True}
+
+        model_kwargs = {"device": "cuda", "trust_remote_code": True}
         encode_kwargs = {"normalize_embeddings": False}
         vectorstore = InMemoryVectorStore.from_documents(
-            documents=doc_splits, embedding=HuggingFaceEmbeddings(
-                model_name="jinaai/jina-embeddings-v2-base-en", model_kwargs=model_kwargs, encode_kwargs=encode_kwargs
-            )
+            documents=doc_splits,
+            embedding=HuggingFaceEmbeddings(
+                model_name="jinaai/jina-embeddings-v2-base-en",
+                model_kwargs=model_kwargs,
+                encode_kwargs=encode_kwargs,
+            ),
         )
         retriever = vectorstore.as_retriever(search_kwargs={"k": 4})
         self.retriever_tool = create_retriever_tool(
-            retriever, "retrieve_blog_posts", "Search and return information about Lilian Weng blog posts."
+            retriever,
+            "retrieve_blog_posts",
+            "Search and return information about Lilian Weng blog posts.",
         )
-        
+
         # Build the graph (mirroring your workflow)
-        from langgraph.graph import MessagesState, StateGraph, START, END
+        from langgraph.graph import END, START, MessagesState, StateGraph
+
         workflow = StateGraph(MessagesState)
         workflow.add_node(self.generate_query_or_respond)
         workflow.add_node("retrieve", ToolNode([self.retriever_tool]))
@@ -50,14 +57,19 @@ class RagAgent:
 
     class GradeDocuments(BaseModel):
         """Pydantic structure for Grade Documents."""
-        binary_score: str = Field(description="Relevance score: 'yes' if relevant, or 'no' if not relevant")
+
+        binary_score: str = Field(
+            description="Relevance score: 'yes' if relevant, or 'no' if not relevant"
+        )
 
     def grade_documents(self, state) -> Literal["generate_answer", "rewrite_question"]:
         """Grade documents to generate answer or rewrite question."""
         question = state["messages"][0].content
         context = state["messages"][-1].content
         prompt = RAGPrompts.GRADE_PROMPT.format(question=question, context=context)
-        response = self.model.with_structured_output(self.GradeDocuments).invoke([{"role": "user", "content": prompt}])
+        response = self.model.with_structured_output(self.GradeDocuments).invoke(
+            [{"role": "user", "content": prompt}]
+        )
         return "generate_answer" if response.binary_score == "yes" else "rewrite_question"
 
     def rewrite_question(self, state):
