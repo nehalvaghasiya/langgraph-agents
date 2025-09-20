@@ -3,13 +3,13 @@ from collections.abc import Callable
 from langchain_core.language_models.chat_models import BaseChatModel
 from langgraph.graph import END, MessagesState
 from langgraph.types import Command
-from typing_extensions import TypedDict
+from typing_extensions import NotRequired, TypedDict
 
 
 class State(MessagesState):
     """State for Graph execution."""
 
-    next: str
+    next: NotRequired[str]
 
 
 def make_supervisor_node(llm: BaseChatModel, members: list[str]) -> Callable[[State], Command[str]]:
@@ -34,7 +34,7 @@ def make_supervisor_node(llm: BaseChatModel, members: list[str]) -> Callable[[St
             {"role": "system", "content": system_prompt},
         ] + state["messages"]
         response = llm.with_structured_output(Router).invoke(messages)
-        goto = response["next"]
+        goto = response.next
         if goto == "FINISH":
             goto = END
 
