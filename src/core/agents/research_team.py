@@ -1,5 +1,4 @@
-from typing import Literal
-
+from langchain_core.language_models import BaseChatModel
 from langchain_core.messages import HumanMessage
 from langgraph.graph import START, StateGraph
 from langgraph.types import Command
@@ -14,7 +13,7 @@ from core.supervisor import make_supervisor_node
 class ResearchTeamAgent:
     """Class for Agent of Research Team."""
 
-    def __init__(self, model):
+    def __init__(self, model: BaseChatModel):
         """Initialize ResearchTeamAgent."""
         self.model = model
         self.search = SearchAgent(model)
@@ -28,14 +27,16 @@ class ResearchTeamAgent:
         graph.add_edge(START, "supervisor")
         self.graph = graph.compile()
 
-    def supervisor_node(
-        self, state: SupervisorState
-    ) -> Command[Literal["search", "web_scraper", "FINISH"]]:
-        """Create Supervisor node."""
+    def supervisor_node(self, state: SupervisorState) -> Command[str]:
+        """Create Supervisor node.
+
+        Returns Command[Literal["search", "web_scraper", "FINISH"]]"""
         return make_supervisor_node(self.model, self.members)(state)
 
-    def search_node(self, state: SupervisorState) -> Command[Literal["supervisor"]]:
-        """Create search node."""
+    def search_node(self, state: SupervisorState) -> Command[str]:
+        """Create search node.
+
+        Returns Command[Literal["supervisor"]]"""
         result = self.search.graph.invoke(state)
         return Command(
             update={
@@ -44,8 +45,10 @@ class ResearchTeamAgent:
             goto="supervisor",
         )
 
-    def web_scraper_node(self, state: SupervisorState) -> Command[Literal["supervisor"]]:
-        """Create Web scraper node."""
+    def web_scraper_node(self, state: SupervisorState) -> Command[str]:
+        """Create Web scraper node.
+
+        Returns Command[Literal["supervisor"]]"""
         result = self.web_scraper.graph.invoke(state)
         return Command(
             update={
