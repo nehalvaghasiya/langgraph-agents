@@ -1,18 +1,21 @@
 from typing import Literal
 
 from langchain.tools.retriever import create_retriever_tool
+from langchain_core.documents import Document
+from langchain_core.language_models import BaseChatModel
 from langchain_core.vectorstores import InMemoryVectorStore
 from langchain_huggingface.embeddings import HuggingFaceEmbeddings
 from langgraph.prebuilt import ToolNode, tools_condition
 from pydantic import BaseModel, Field
 
+from core.agents.base import AgentState
 from core.prompts.rag import RAGPrompts
 
 
 class RagAgent:
     """Class for RAG agent."""
 
-    def __init__(self, model, doc_splits):
+    def __init__(self, model: BaseChatModel, doc_splits: list[Document]):
         """Initialized RAG agent."""
         self.model = model
 
@@ -33,7 +36,7 @@ class RagAgent:
             "Search and return information about Lilian Weng blog posts.",
         )
 
-        # Build the graph (mirroring your workflow)
+        # Build the graph (mirroring workflow)
         from langgraph.graph import END, START, MessagesState, StateGraph
 
         workflow = StateGraph(MessagesState)
@@ -50,7 +53,7 @@ class RagAgent:
         workflow.add_edge("rewrite_question", "generate_query_or_respond")
         self.graph = workflow.compile()
 
-    def generate_query_or_respond(self, state):
+    def generate_query_or_respond(self, state: AgentState) -> dict:
         """Generate query or respond."""
         response = self.model.bind_tools([self.retriever_tool]).invoke(state["messages"])
         return {"messages": [response]}
@@ -62,7 +65,7 @@ class RagAgent:
             description="Relevance score: 'yes' if relevant, or 'no' if not relevant"
         )
 
-    def grade_documents(self, state) -> Literal["generate_answer", "rewrite_question"]:
+    def grade_documents(self, state: AgentState) -> Literal["generate_answer", "rewrite_question"]:
         """Grade documents to generate answer or rewrite question."""
         question = state["messages"][0].content
         context = state["messages"][-1].content
@@ -72,7 +75,7 @@ class RagAgent:
         )
         return "generate_answer" if response.binary_score == "yes" else "rewrite_question"
 
-    def rewrite_question(self, state):
+    def rewrite_question(self, state: AgentState) -> dict:
         """Rewrite question using LLM."""
         messages = state["messages"]
         question = messages[0].content
@@ -80,7 +83,7 @@ class RagAgent:
         response = self.model.invoke([{"role": "user", "content": prompt}])
         return {"messages": [{"role": "user", "content": response.content}]}
 
-    def generate_answer(self, state):
+    def generate_answer(self, state: AgentState):
         """Generate answer using LLM."""
         question = state["messages"][0].content
         context = state["messages"][-1].content
