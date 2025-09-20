@@ -1,4 +1,5 @@
-from typing import Callable
+from collections.abc import Callable
+
 from langchain_core.language_models import BaseChatModel
 
 from core.agents.base import BaseAgent
