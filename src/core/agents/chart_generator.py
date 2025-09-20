@@ -1,3 +1,5 @@
+from collections.abc import Callable
+
 from langchain_core.language_models import BaseChatModel
 
 from core.agents.base import BaseAgent
@@ -11,7 +13,7 @@ class ChartGeneratorAgent(BaseAgent):
     def __init__(
         self,
         model: BaseChatModel,
-        tools: list = None,
+        tools: list[Callable] | None = None,
         system: str = "",
     ):
         """Initialize Chart Generator Agent."""
