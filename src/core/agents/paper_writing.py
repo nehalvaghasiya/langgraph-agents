@@ -38,9 +38,7 @@ class PaperWritingTeamAgent:
         # Conditional edges would be added based on supervisor routing (adapt from make_supervisor_node)
         self.graph = graph.compile()
 
-    def supervisor_node(
-        self, state: SupervisorState
-    ) -> Command[Literal["doc_writer", "note_taker", "chart_generator"]]:
+    def supervisor_node(self, state: SupervisorState) -> Command[str]:
         """Create Supervisor Node."""
         # Use your make_supervisor_node logic here
         return make_supervisor_node(self.model, self.members)(state)
