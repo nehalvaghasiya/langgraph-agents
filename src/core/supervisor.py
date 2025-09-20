@@ -1,3 +1,5 @@
+from collections.abc import Callable
+
 from langchain_core.language_models.chat_models import BaseChatModel
 from langgraph.graph import END, MessagesState
 from langgraph.types import Command
@@ -10,7 +12,7 @@ class State(MessagesState):
     next: str
 
 
-def make_supervisor_node(llm: BaseChatModel, members: list[str]) -> str:
+def make_supervisor_node(llm: BaseChatModel, members: list[str]) -> Callable[[State], Command[str]]:
     """Make supervisor node."""
     options = ["FINISH"] + members
     system_prompt = (
