@@ -1,3 +1,4 @@
+from typing import Callable
 from langchain_core.language_models import BaseChatModel
 
 from core.agents.base import BaseAgent
@@ -10,7 +11,7 @@ class DocWriterAgent(BaseAgent):
     def __init__(
         self,
         model: BaseChatModel,
-        tools: list = [write_document, edit_document, read_document],
+        tools: list[Callable] | None = None,
         system: str = "",
     ):
         """Initialize DocWriterAgent."""
@@ -18,4 +19,5 @@ class DocWriterAgent(BaseAgent):
             system
             or "You can read, write and edit documents based on note-taker's outlines. Don't ask follow-up questions."
         )
+        tools = [write_document, edit_document, read_document]
         super().__init__(model, tools, system)
