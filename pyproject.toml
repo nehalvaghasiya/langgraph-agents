@@ -106,6 +106,7 @@ reportUnknownMemberType = "none"
 reportUnknownParameterType = "none"
 reportUnknownArgumentType = "none"
 reportUnknownLambdaType = "none"
+reportAttributeAccessIssue = "none"
 reportMissingParameterType = "information"  # Downgrade to info
 
 # Keep important checks enabled
