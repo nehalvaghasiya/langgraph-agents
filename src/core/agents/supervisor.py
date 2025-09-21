@@ -1,10 +1,27 @@
+from typing import Any
+
+from langchain_core.language_models import BaseChatModel
+
 from core.agents.base import BaseAgent
+
+
+class MemberTool:
+    def __init__(self, member: str):
+        self.name = member
+        self.member = member
+
+    def __call__(self, args: Any) -> str:
+        print(f"Routing to member: {self.member}")
+        return f"Result from {self.member}"
+
+    def invoke(self, args: Any) -> str:
+        return self(args)
 
 
 class SupervisorAgent(BaseAgent):
     """Class for Supervisor Agent."""
 
-    def __init__(self, model, members: list[str], system: str = ""):
+    def __init__(self, model: BaseChatModel, members: list[str], system: str = ""):
         # Members are treated as "tools" (sub-agents)
         self.members = members
         system = (
@@ -17,13 +34,4 @@ class SupervisorAgent(BaseAgent):
 
     def create_member_tool(self, member: str):
         """Create member tool that invokes a sub-agent."""
-
-        # Dummy tool that invokes a sub-agent (you'd replace with actual sub-agent invocation)
-        def member_tool(args):
-            print(f"Routing to member: {member}")
-            # Simulate sub-agent call (replace with actual agent.graph.invoke)
-            return f"Result from {member}"
-
-        member_tool.name = member
-        member_tool.invoke = member_tool
-        return member_tool
+        return MemberTool(member)
