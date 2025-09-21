@@ -9,7 +9,7 @@ from infra.api.google_search import get_google_search
 class SearchAgent(BaseAgent):
     """Search Agent class to search on Internet."""
 
-    def __init__(self, model: BaseChatModel, tools: list[Callable] | None = None, system=""):
+    def __init__(self, model: BaseChatModel, tools: list[Callable] | None = None, system: str = ""):
         """Initialize search agent."""
         system = (
             system
