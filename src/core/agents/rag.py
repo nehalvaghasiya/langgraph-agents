@@ -4,6 +4,7 @@ from langchain.tools.retriever import create_retriever_tool
 from langchain_core.documents import Document
 from langchain_core.language_models import BaseChatModel
 from langchain_core.vectorstores import InMemoryVectorStore
+from langgraph.graph import END, START, MessagesState, StateGraph
 from langchain_huggingface.embeddings import HuggingFaceEmbeddings
 from langgraph.prebuilt import ToolNode, tools_condition
 from pydantic import BaseModel, Field
@@ -14,30 +15,55 @@ from core.prompts.rag import RAGPrompts
 
 class RagAgent:
     """Class for RAG agent."""
-
     def __init__(self, model: BaseChatModel, doc_splits: list[Document]):
         """Initialized RAG agent."""
+        print("initialization")
         self.model = model
-
-        model_kwargs = {"device": "cuda", "trust_remote_code": True}
+        
+        print("Setting up model kwargs...")
+        # Try CPU first to avoid CUDA issues
+        model_kwargs = {"device": "cpu", "trust_remote_code": True}  # Changed to CPU
         encode_kwargs = {"normalize_embeddings": False}
-        vectorstore = InMemoryVectorStore.from_documents(
-            documents=doc_splits,
-            embedding=HuggingFaceEmbeddings(
-                model_name="jinaai/jina-embeddings-v2-base-en",
+        print("Model kwargs set")
+        
+        print("Creating embeddings...")
+        try:
+            embeddings = HuggingFaceEmbeddings(
+                model_name="sentence-transformers/all-MiniLM-L6-v2",
                 model_kwargs=model_kwargs,
                 encode_kwargs=encode_kwargs,
-            ),
-        )
+            )
+            print("Embeddings created successfully")
+        except Exception as e:
+            print(f"Embeddings creation failed: {e}")
+            raise
+        
+        print("Creating vectorstore...")
+        try:
+            vectorstore = InMemoryVectorStore.from_documents(
+                documents=doc_splits,
+                embedding=embeddings,
+            )
+            print("Vectorstore created successfully")
+        except Exception as e:
+            print(f"Vectorstore creation failed: {e}")
+            raise
+        
+        print("Creating retriever...")
         retriever = vectorstore.as_retriever(search_kwargs={"k": 4})
+        print("Retriever created")
+        
+        print("Creating retriever tool...")
         self.retriever_tool = create_retriever_tool(
             retriever,
             "retrieve_blog_posts",
             "Search and return information about Lilian Weng blog posts.",
         )
-
-        # Build the graph (mirroring workflow)
-        from langgraph.graph import END, START, MessagesState, StateGraph
+        print("Retriever tool created")
+        
+        print("Building workflow...")
+        # Rest of your workflow code...
+        print("initialization completed")
 
         workflow = StateGraph(MessagesState)
         workflow.add_node(self.generate_query_or_respond)
@@ -52,7 +78,7 @@ class RagAgent:
         workflow.add_edge("generate_answer", END)
         workflow.add_edge("rewrite_question", "generate_query_or_respond")
         self.graph = workflow.compile()
-
+        
     def generate_query_or_respond(self, state: AgentState) -> dict:
         """Generate query or respond."""
         response = self.model.bind_tools([self.retriever_tool]).invoke(state["messages"])
