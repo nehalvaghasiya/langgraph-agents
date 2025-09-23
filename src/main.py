@@ -10,24 +10,24 @@ from infra.llm_clients.groq import get_llm
 # Get LLM instance
 llm = get_llm()
 
-# For Doc Writer agent
-doc_writer = DocWriterAgent(llm)
-query = "Write a document about cats."
-result = doc_writer.graph.invoke({"messages": [HumanMessage(content=query)]})
-print(result)
+# # For Doc Writer agent
+# doc_writer = DocWriterAgent(llm)
+# query = "Write a document about cats."
+# result = doc_writer.graph.invoke({"messages": [HumanMessage(content=query)]})
+# print(result)
 
-# For Paper writing Team
-paper_team = PaperWritingTeamAgent(llm)
-team_result = paper_team.graph.invoke(
-    {
-        "messages": [
-            HumanMessage(
-                content="Write an outline for poem about cats and then write the poem to disk."
-            )
-        ]
-    }
-)
-print(team_result)
+# # For Paper writing Team
+# paper_team = PaperWritingTeamAgent(llm)
+# team_result = paper_team.graph.invoke(
+#     {
+#         "messages": [
+#             HumanMessage(
+#                 content="Write an outline for poem about cats and then write the poem to disk."
+#             )
+#         ]
+#     }
+# )
+# print(team_result)
 
 # For RAG
 urls = [
@@ -41,8 +41,19 @@ text_splitter = RecursiveCharacterTextSplitter.from_tiktoken_encoder(
     chunk_size=100, chunk_overlap=30
 )
 doc_splits = text_splitter.split_documents(docs_list)
-rag_agent = RagAgent(llm, doc_splits)
-rag_result = rag_agent.graph.invoke(
-    {"messages": [HumanMessage(content="What does Lilian Weng say about types of reward hacking?")]}
-)
-print(rag_result)
+# Add debugging to the invoke call
+try:
+    rag_agent = RagAgent(llm, doc_splits)
+    # Add this after creating rag_agent
+    print("RAG agent created successfully")
+
+
+    rag_result = rag_agent.graph.invoke(
+        {"messages": [HumanMessage(content="What does Lilian Weng say about types of reward hacking?")]}
+    )
+    print("RAG result:", rag_result)
+except Exception as e:
+    print(f"Error occurred: {e}")
+    import traceback
+    traceback.print_exc()
+
