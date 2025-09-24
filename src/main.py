@@ -47,5 +47,3 @@ rag_result = rag_agent.graph.invoke(
     {"messages": [HumanMessage(content="What does Lilian Weng say about types of reward hacking?")]}
 )
 print("RAG result:", rag_result)
-
-
