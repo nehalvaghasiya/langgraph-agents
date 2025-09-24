@@ -17,16 +17,12 @@ class RagAgent:
     """Class for RAG agent."""
     def __init__(self, model: BaseChatModel, doc_splits: list[Document]):
         """Initialized RAG agent."""
-        print("initialization")
         self.model = model
-        
-        print("Setting up model kwargs...")
+
         # Try CPU first to avoid CUDA issues
-        model_kwargs = {"device": "cpu", "trust_remote_code": True}  # Changed to CPU
+        model_kwargs = {"device": "cpu", "trust_remote_code": True}
         encode_kwargs = {"normalize_embeddings": False}
-        print("Model kwargs set")
-        
-        print("Creating embeddings...")
+
         try:
             embeddings = HuggingFaceEmbeddings(
                 model_name="sentence-transformers/all-MiniLM-L6-v2",
