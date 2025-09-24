@@ -4,8 +4,8 @@ from langchain.tools.retriever import create_retriever_tool
 from langchain_core.documents import Document
 from langchain_core.language_models import BaseChatModel
 from langchain_core.vectorstores import InMemoryVectorStore
-from langgraph.graph import END, START, MessagesState, StateGraph
 from langchain_huggingface.embeddings import HuggingFaceEmbeddings
+from langgraph.graph import END, START, MessagesState, StateGraph
 from langgraph.prebuilt import ToolNode, tools_condition
 from pydantic import BaseModel, Field
 
@@ -15,6 +15,7 @@ from core.prompts.rag import RAGPrompts
 
 class RagAgent:
     """Class for RAG agent."""
+
     def __init__(self, model: BaseChatModel, doc_splits: list[Document]):
         """Initialized RAG agent."""
         self.model = model
@@ -41,9 +42,9 @@ class RagAgent:
         except Exception as e:
             print(f"Vectorstore creation failed: {e}")
             raise
-        
+
         retriever = vectorstore.as_retriever(search_kwargs={"k": 4})
-        
+
         self.retriever_tool = create_retriever_tool(
             retriever,
             "retrieve_blog_posts",
@@ -63,7 +64,7 @@ class RagAgent:
         workflow.add_edge("generate_answer", END)
         workflow.add_edge("rewrite_question", "generate_query_or_respond")
         self.graph = workflow.compile()
-        
+
     def generate_query_or_respond(self, state: AgentState) -> dict:
         """Generate query or respond."""
         response = self.model.bind_tools([self.retriever_tool]).invoke(state["messages"])
