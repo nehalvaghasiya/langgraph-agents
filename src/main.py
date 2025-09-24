@@ -10,24 +10,24 @@ from infra.llm_clients.groq import get_llm
 # Get LLM instance
 llm = get_llm()
 
-# # For Doc Writer agent
-# doc_writer = DocWriterAgent(llm)
-# query = "Write a document about cats."
-# result = doc_writer.graph.invoke({"messages": [HumanMessage(content=query)]})
-# print(result)
+# For Doc Writer agent
+doc_writer = DocWriterAgent(llm)
+query = "Write a document about cats."
+result = doc_writer.graph.invoke({"messages": [HumanMessage(content=query)]})
+print(result)
 
-# # For Paper writing Team
-# paper_team = PaperWritingTeamAgent(llm)
-# team_result = paper_team.graph.invoke(
-#     {
-#         "messages": [
-#             HumanMessage(
-#                 content="Write an outline for poem about cats and then write the poem to disk."
-#             )
-#         ]
-#     }
-# )
-# print(team_result)
+# For Paper writing Team
+paper_team = PaperWritingTeamAgent(llm)
+team_result = paper_team.graph.invoke(
+    {
+        "messages": [
+            HumanMessage(
+                content="Write an outline for poem about cats and then write the poem to disk."
+            )
+        ]
+    }
+)
+print(team_result)
 
 # For RAG
 urls = [
