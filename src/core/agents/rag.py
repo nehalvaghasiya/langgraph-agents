@@ -29,37 +29,26 @@ class RagAgent:
                 model_kwargs=model_kwargs,
                 encode_kwargs=encode_kwargs,
             )
-            print("Embeddings created successfully")
         except Exception as e:
             print(f"Embeddings creation failed: {e}")
             raise
-        
-        print("Creating vectorstore...")
+
         try:
             vectorstore = InMemoryVectorStore.from_documents(
                 documents=doc_splits,
                 embedding=embeddings,
             )
-            print("Vectorstore created successfully")
         except Exception as e:
             print(f"Vectorstore creation failed: {e}")
             raise
         
-        print("Creating retriever...")
         retriever = vectorstore.as_retriever(search_kwargs={"k": 4})
-        print("Retriever created")
         
-        print("Creating retriever tool...")
         self.retriever_tool = create_retriever_tool(
             retriever,
             "retrieve_blog_posts",
             "Search and return information about Lilian Weng blog posts.",
         )
-        print("Retriever tool created")
-        
-        print("Building workflow...")
-        # Rest of your workflow code...
-        print("initialization completed")
 
         workflow = StateGraph(MessagesState)
         workflow.add_node(self.generate_query_or_respond)
