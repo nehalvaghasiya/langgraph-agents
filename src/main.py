@@ -41,19 +41,11 @@ text_splitter = RecursiveCharacterTextSplitter.from_tiktoken_encoder(
     chunk_size=100, chunk_overlap=30
 )
 doc_splits = text_splitter.split_documents(docs_list)
-# Add debugging to the invoke call
-try:
-    rag_agent = RagAgent(llm, doc_splits)
-    # Add this after creating rag_agent
-    print("RAG agent created successfully")
 
+rag_agent = RagAgent(llm, doc_splits)
+rag_result = rag_agent.graph.invoke(
+    {"messages": [HumanMessage(content="What does Lilian Weng say about types of reward hacking?")]}
+)
+print("RAG result:", rag_result)
 
-    rag_result = rag_agent.graph.invoke(
-        {"messages": [HumanMessage(content="What does Lilian Weng say about types of reward hacking?")]}
-    )
-    print("RAG result:", rag_result)
-except Exception as e:
-    print(f"Error occurred: {e}")
-    import traceback
-    traceback.print_exc()
 
