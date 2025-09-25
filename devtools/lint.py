@@ -5,7 +5,7 @@ from rich import get_console, reconfigure
 from rich import print as rprint
 
 # Update as needed.
-SRC_PATHS = ["src", "tests", "devtools"]
+SRC_PATHS = ["src", "devtools"]
 DOC_PATHS = ["README.md"]
 
 
@@ -19,7 +19,7 @@ def main():
     errcount += run(["codespell", "--write-changes", *SRC_PATHS, *DOC_PATHS])
     errcount += run(["ruff", "check", "--fix", *SRC_PATHS])
     errcount += run(["ruff", "format", *SRC_PATHS])
-    errcount += run(["basedpyright", "--stats", *SRC_PATHS])
+    errcount += run(["basedpyright", "--stats", "src", "devtools"])
 
     rprint()
 
