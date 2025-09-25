@@ -34,3 +34,10 @@ def test_baseagent_initialization(tools, system):
     assert agent.system == (system or "")
     for t in tools:
         assert t.name in agent.tools
+
+@pytest.mark.parametrize("tool_calls,result", [([], False), ([{'name': 't1', 'id': '1', 'args': {}}], True)])
+def test_exists_action(tool_calls, result):
+    model = DummyModel()
+    agent = BaseAgent(model, [DummyTool('t1')])
+    state = AgentState(messages=[MagicMock(tool_calls=tool_calls)])
+    assert agent.exists_action(state) == result
