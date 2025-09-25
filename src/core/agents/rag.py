@@ -110,8 +110,7 @@ class RagAgent:
         return "generate_answer" if response.binary_score == "yes" else "rewrite_question"
 
     def rewrite_question(self, state: AgentState) -> dict:
-        """
-        Rewrite the user question using the language model for improved retrieval.
+        """Rewrite the user question using the language model for improved retrieval.
 
         Args:
             state (AgentState): The current agent state containing messages.
