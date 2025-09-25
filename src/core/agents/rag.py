@@ -74,8 +74,7 @@ class RagAgent:
         self.graph = workflow.compile()
 
     def generate_query_or_respond(self, state: AgentState) -> dict:
-        """
-        Generate a query or respond using the language model and retriever tool.
+        """Generate a query or respond using the language model and retriever tool.
 
         Args:
             state (AgentState): The current agent state containing messages.
