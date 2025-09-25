@@ -86,3 +86,11 @@ def test_take_action_non_string_output():
     assert 'messages' in result
     assert all(isinstance(m.content, str) for m in result['messages'])
 
+
+# Tool dictionary with non-callable values
+def test_baseagent_tool_dict_non_callable():
+    model = DummyModel()
+    tools = [MagicMock(name='t1'), MagicMock(name='t2')]
+    agent = BaseAgent(model, tools)
+    for k, v in agent.tools.items():
+        assert hasattr(v, 'invoke')
