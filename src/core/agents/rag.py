@@ -17,7 +17,16 @@ class RagAgent:
     """Class for RAG agent."""
 
     def __init__(self, model: BaseChatModel, doc_splits: list[Document]):
-        """Initialized RAG agent."""
+        """
+        Initialize a Retrieval-Augmented Generation (RAG) agent.
+
+        Args:
+            model (BaseChatModel): The language model to use for generation and scoring.
+            doc_splits (list[Document]): List of document splits for retrieval and embedding.
+
+        Raises:
+            Exception: If embeddings or vectorstore creation fails.
+        """
         self.model = model
 
         # Try CPU first to avoid CUDA issues
@@ -66,7 +75,15 @@ class RagAgent:
         self.graph = workflow.compile()
 
     def generate_query_or_respond(self, state: AgentState) -> dict:
-        """Generate query or respond."""
+        """
+        Generate a query or respond using the language model and retriever tool.
+
+        Args:
+            state (AgentState): The current agent state containing messages.
+
+        Returns:
+            dict: Dictionary with the model's response message.
+        """
         response = self.model.bind_tools([self.retriever_tool]).invoke(state["messages"])
         return {"messages": [response]}
 
@@ -78,7 +95,15 @@ class RagAgent:
         )
 
     def grade_documents(self, state: AgentState) -> Literal["generate_answer", "rewrite_question"]:
-        """Grade documents to generate answer or rewrite question."""
+        """
+        Grade retrieved documents for relevance and decide next action.
+
+        Args:
+            state (AgentState): The current agent state containing messages.
+
+        Returns:
+            Literal["generate_answer", "rewrite_question"]: Next step based on relevance score.
+        """
         question = state["messages"][0].content
         context = state["messages"][-1].content
         prompt = RAGPrompts.GRADE_PROMPT.format(question=question, context=context)
@@ -88,7 +113,15 @@ class RagAgent:
         return "generate_answer" if response.binary_score == "yes" else "rewrite_question"
 
     def rewrite_question(self, state: AgentState) -> dict:
-        """Rewrite question using LLM."""
+        """
+        Rewrite the user question using the language model for improved retrieval.
+
+        Args:
+            state (AgentState): The current agent state containing messages.
+
+        Returns:
+            dict: Dictionary with the rewritten question message.
+        """
         messages = state["messages"]
         question = messages[0].content
         prompt = RAGPrompts.REWRITE_PROMPT.format(question=question)
@@ -96,7 +129,15 @@ class RagAgent:
         return {"messages": [{"role": "user", "content": response.content}]}
 
     def generate_answer(self, state: AgentState):
-        """Generate answer using LLM."""
+        """
+        Generate an answer to the user question using the language model and retrieved context.
+
+        Args:
+            state (AgentState): The current agent state containing messages.
+
+        Returns:
+            dict: Dictionary with the generated answer message.
+        """
         question = state["messages"][0].content
         context = state["messages"][-1].content
         prompt = RAGPrompts.GENERATE_PROMPT.format(question=question, context=context)
