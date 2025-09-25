@@ -93,8 +93,7 @@ class RagAgent:
         )
 
     def grade_documents(self, state: AgentState) -> Literal["generate_answer", "rewrite_question"]:
-        """
-        Grade retrieved documents for relevance and decide next action.
+        """Grade retrieved documents for relevance and decide next action.
 
         Args:
             state (AgentState): The current agent state containing messages.
