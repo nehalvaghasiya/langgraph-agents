@@ -22,3 +22,8 @@ class DummyModel:
     def invoke(self, messages):
         return self.output
 
+@pytest.mark.parametrize("messages", [[], [{}], [{'tool_calls': []}]])
+def test_agentstate_structure(messages):
+    state = AgentState(messages=messages)
+    assert isinstance(state['messages'], list)
+
