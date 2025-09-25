@@ -64,3 +64,15 @@ def test_take_action(tool_calls, tool_names, expected):
     result = agent.take_action(state)
     assert 'messages' in result
     assert [m.content for m in result['messages']] == expected
+
+# Exception in tool
+def test_take_action_tool_exception():
+    tools = [DummyTool('t1', raise_exc=True)]
+    model = DummyModel()
+    agent = BaseAgent(model, tools)
+    state = AgentState(messages=[MagicMock(tool_calls=[{'name': 't1', 'id': '1', 'args': {}}])])
+    # Should not raise, but return exception as string
+    result = agent.take_action(state)
+    assert 'messages' in result
+    assert any('Exception' in m.content or 'error' in m.content.lower() or isinstance(m.content, str) for m in result['messages'])
+
