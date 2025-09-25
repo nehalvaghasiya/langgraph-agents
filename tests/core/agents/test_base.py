@@ -41,3 +41,12 @@ def test_exists_action(tool_calls, result):
     agent = BaseAgent(model, [DummyTool('t1')])
     state = AgentState(messages=[MagicMock(tool_calls=tool_calls)])
     assert agent.exists_action(state) == result
+
+@pytest.mark.parametrize("system", [None, "sys"])
+def test_call_model(system):
+    model = DummyModel(output=MagicMock(tool_calls=[]))
+    agent = BaseAgent(model, [DummyTool('t1')], system or "")
+    state = AgentState(messages=[MagicMock(tool_calls=[])])
+    result = agent.call_model(state)
+    assert 'messages' in result
+    assert isinstance(result['messages'], list)
