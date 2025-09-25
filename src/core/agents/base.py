@@ -98,7 +98,8 @@ class BaseAgent:
         """Take action by executing tool calls.
 
         Processes tool calls from the last message in the state, executes each tool,
-        and returns the results as ToolMessage objects.
+        and returns the results as ToolMessage objects. If a tool raises an exception,
+        the error is caught and returned as a string in the ToolMessage content.
 
         Args:
             state (AgentState): The current agent state containing messages with tool calls.
@@ -119,7 +120,10 @@ class BaseAgent:
                 print("\n ....bad tool name....")
                 result = "bad tool name, retry"
             else:
-                result = self.tools[t["name"]].invoke(t["args"])
+                try:
+                    result = self.tools[t["name"]].invoke(t["args"])
+                except Exception as e:
+                    result = f"Exception: {e}"
             results.append(ToolMessage(tool_call_id=t["id"], name=t["name"], content=str(result)))
         print("Back to the model!")
         return {"messages": results}
