@@ -50,3 +50,17 @@ def test_call_model(system):
     result = agent.call_model(state)
     assert 'messages' in result
     assert isinstance(result['messages'], list)
+
+@pytest.mark.parametrize("tool_calls,tool_names,expected", [
+    ([{'name': 't1', 'id': '1', 'args': {}}], ['t1'], ['{}']),
+    ([{'name': 'bad', 'id': '2', 'args': {}}], ['t1'], ['bad tool name, retry']),
+    ([{'name': 't1', 'id': '3', 'args': {}}], ['t1'], ['{}']),
+])
+def test_take_action(tool_calls, tool_names, expected):
+    tools = [DummyTool(name) for name in tool_names]
+    model = DummyModel()
+    agent = BaseAgent(model, tools)
+    state = AgentState(messages=[MagicMock(tool_calls=tool_calls)])
+    result = agent.take_action(state)
+    assert 'messages' in result
+    assert [m.content for m in result['messages']] == expected
