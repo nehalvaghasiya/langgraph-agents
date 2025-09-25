@@ -76,3 +76,13 @@ def test_take_action_tool_exception():
     assert 'messages' in result
     assert any('Exception' in m.content or 'error' in m.content.lower() or isinstance(m.content, str) for m in result['messages'])
 
+# Non-string output from tool
+def test_take_action_non_string_output():
+    tools = [DummyTool('t1', return_value=123)]
+    model = DummyModel()
+    agent = BaseAgent(model, tools)
+    state = AgentState(messages=[MagicMock(tool_calls=[{'name': 't1', 'id': '1', 'args': {}}])])
+    result = agent.take_action(state)
+    assert 'messages' in result
+    assert all(isinstance(m.content, str) for m in result['messages'])
+
