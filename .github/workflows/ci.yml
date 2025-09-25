@@ -60,4 +60,4 @@ jobs:
         run: uv run python devtools/lint.py
 
       - name: Run tests
-        run: uv run pytest tests/
+        run: PYTHONPATH=src uv run pytest tests/
