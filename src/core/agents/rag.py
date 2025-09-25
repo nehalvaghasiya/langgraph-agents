@@ -17,8 +17,7 @@ class RagAgent:
     """Class for RAG agent."""
 
     def __init__(self, model: BaseChatModel, doc_splits: list[Document]):
-        """
-        Initialize a Retrieval-Augmented Generation (RAG) agent.
+        """Initialize a Retrieval-Augmented Generation (RAG) agent.
 
         Args:
             model (BaseChatModel): The language model to use for generation and scoring.
