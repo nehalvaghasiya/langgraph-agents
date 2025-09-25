@@ -27,3 +27,10 @@ def test_agentstate_structure(messages):
     state = AgentState(messages=messages)
     assert isinstance(state['messages'], list)
 
+@pytest.mark.parametrize("tools,system", [([], None), ([DummyTool('t1')], "sys"), ([DummyTool('t1'), DummyTool('t2')], None)])
+def test_baseagent_initialization(tools, system):
+    model = DummyModel()
+    agent = BaseAgent(model, tools, system or "")
+    assert agent.system == (system or "")
+    for t in tools:
+        assert t.name in agent.tools
