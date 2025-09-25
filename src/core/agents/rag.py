@@ -125,8 +125,7 @@ class RagAgent:
         return {"messages": [{"role": "user", "content": response.content}]}
 
     def generate_answer(self, state: AgentState):
-        """
-        Generate an answer to the user question using the language model and retrieved context.
+        """Generate an answer to the user question using the language model and retrieved context.
 
         Args:
             state (AgentState): The current agent state containing messages.
