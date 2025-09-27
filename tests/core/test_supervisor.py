@@ -80,3 +80,11 @@ def test_supervisor_node_invalid_member():
     assert result.goto == "not_a_member"
     assert result.update["next"] == "not_a_member"
 
+# Handles LLM missing 'next' attribute
+def test_supervisor_node_missing_next():
+    llm = DummyLLM(missing_next=True)
+    node = make_supervisor_node(llm, ["worker1"])
+    state = State(messages=[])
+    with pytest.raises(AttributeError):
+        node(state)
+
