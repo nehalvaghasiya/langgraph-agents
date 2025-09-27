@@ -32,3 +32,14 @@ def test_make_supervisor_node_returns_callable():
     llm = DummyLLM(next_value="worker1")
     node = make_supervisor_node(llm, ["worker1"])
     assert callable(node)
+
+# Handles empty members
+@pytest.mark.parametrize("members", [[], ["worker1"], ["worker1", "worker2"]])
+def test_make_supervisor_node_members(members):
+    llm = DummyLLM(next_value="worker1")
+    node = make_supervisor_node(llm, members)
+    state = State(messages=[])
+    result = node(state)
+    assert isinstance(result, Command)
+    assert hasattr(result, "goto")
+    assert hasattr(result, "update")
