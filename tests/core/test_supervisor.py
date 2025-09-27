@@ -43,3 +43,12 @@ def test_make_supervisor_node_members(members):
     assert isinstance(result, Command)
     assert hasattr(result, "goto")
     assert hasattr(result, "update")
+
+# Handles state with empty and populated messages
+@pytest.mark.parametrize("messages", [[], [{"role": "user", "content": "hi"}]])
+def test_supervisor_node_messages(messages):
+    llm = DummyLLM(next_value="worker1")
+    node = make_supervisor_node(llm, ["worker1"])
+    state = State(messages=messages)
+    result = node(state)
+    assert isinstance(result, Command)
