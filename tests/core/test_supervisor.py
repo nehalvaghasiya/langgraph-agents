@@ -95,3 +95,16 @@ def test_supervisor_node_llm_exception():
     state = State(messages=[])
     with pytest.raises(Exception):
         node(state)
+
+# Router TypedDict
+def test_router_typed_dict():
+    llm = DummyLLM(next_value="worker1")
+    node = make_supervisor_node(llm, ["worker1"])
+    # Access Router via closure
+    Router = node.__closure__[0].cell_contents
+    r = Router(next="worker1")
+    assert r["next"] == "worker1"
+    # Missing next key: TypedDict allows creation, but dict will be empty
+    r_empty = Router()
+    assert isinstance(r_empty, dict)
+    assert r_empty == {}
