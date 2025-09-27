@@ -27,3 +27,8 @@ def test_state_instantiation():
     assert s2["next"] == "worker1"
     assert "messages" in s2
 
+# Make_supervisor_node returns callable
+def test_make_supervisor_node_returns_callable():
+    llm = DummyLLM(next_value="worker1")
+    node = make_supervisor_node(llm, ["worker1"])
+    assert callable(node)
