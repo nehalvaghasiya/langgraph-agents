@@ -70,3 +70,13 @@ def test_supervisor_node_valid_member():
     result = node(state)
     assert result.goto == "worker1"
     assert result.update["next"] == "worker1"
+
+# Handles LLM returning invalid member name
+def test_supervisor_node_invalid_member():
+    llm = DummyLLM(next_value="not_a_member")
+    node = make_supervisor_node(llm, ["worker1"])
+    state = State(messages=[])
+    result = node(state)
+    assert result.goto == "not_a_member"
+    assert result.update["next"] == "not_a_member"
+
