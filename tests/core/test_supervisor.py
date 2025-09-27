@@ -88,3 +88,10 @@ def test_supervisor_node_missing_next():
     with pytest.raises(AttributeError):
         node(state)
 
+# Handles LLM raising exception
+def test_supervisor_node_llm_exception():
+    llm = DummyLLM(raise_exc=True)
+    node = make_supervisor_node(llm, ["worker1"])
+    state = State(messages=[])
+    with pytest.raises(Exception):
+        node(state)
