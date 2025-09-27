@@ -52,3 +52,13 @@ def test_supervisor_node_messages(messages):
     state = State(messages=messages)
     result = node(state)
     assert isinstance(result, Command)
+
+# Handles LLM returning 'FINISH'
+def test_supervisor_node_finish():
+    llm = DummyLLM(next_value="FINISH")
+    node = make_supervisor_node(llm, ["worker1"])
+    state = State(messages=[])
+    result = node(state)
+    assert result.goto == "__end__"
+    assert result.update["next"] == "__end__"
+
