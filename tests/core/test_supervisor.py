@@ -19,3 +19,11 @@ class DummyLLM:
             return SimpleNamespace()  # No 'next' attribute
         return SimpleNamespace(next=self.next_value)
 
+# State class
+def test_state_instantiation():
+    s1 = State(messages=[])
+    assert isinstance(s1, dict)
+    s2 = State(messages=[], next="worker1")
+    assert s2["next"] == "worker1"
+    assert "messages" in s2
+
