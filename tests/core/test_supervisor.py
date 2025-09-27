@@ -62,3 +62,11 @@ def test_supervisor_node_finish():
     assert result.goto == "__end__"
     assert result.update["next"] == "__end__"
 
+# Handles LLM returning valid member name
+def test_supervisor_node_valid_member():
+    llm = DummyLLM(next_value="worker1")
+    node = make_supervisor_node(llm, ["worker1"])
+    state = State(messages=[])
+    result = node(state)
+    assert result.goto == "worker1"
+    assert result.update["next"] == "worker1"
