@@ -135,5 +135,6 @@ src/
 │   ├── paper_writing.py        # Example using PaperWritingTeamAgent
 │   ├── research_query.py       # Example using ResearchTeamAgent
 │   └── rag_query.py            # Example using RagAgent
+├── tests/
 └── README.md                   # This file
 ```
