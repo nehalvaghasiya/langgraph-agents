@@ -21,5 +21,6 @@ class ChartGeneratorAgent(BaseAgent):
             system
             or "You are a chart generator. Use tools to read documents and generate charts with Python REPL. Don't ask follow-up questions."
         )
+        # Toe required for generating chart
         tools = [read_document, python_repl_tool]
         super().__init__(model, tools, system)
