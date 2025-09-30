@@ -138,6 +138,6 @@ src/
 ├── tests/
 │    ├── core/
 │       ├── agents/                   # Agent classes: writing, searching, scraping
-│           ├── test_base.py
+│           └──  test_base.py
 └── README.md                   # This file
 ```
