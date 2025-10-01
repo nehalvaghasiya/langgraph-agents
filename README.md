@@ -145,7 +145,6 @@ langgraph-agents/
 │   │   ├── agents/
 │   │   │   └── test_base.py
 │   │   └── test_supervisor.py
-│   └── test_placeholder.py
 ├── uv.lock
 └── workspace/
 ```
