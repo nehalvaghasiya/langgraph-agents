@@ -102,43 +102,50 @@ print(result["messages"][-1].content)
 
 ## Directory Tree
 ```text
-src/
-├── core/
-│   ├── agents/                   # Agent classes: writing, searching, scraping
-│   │   ├── base.py
-│   │   ├── chart_generator.py
-│   │   ├── doc_writer.py
-│   │   ├── note_taker.py
-│   │   ├── paper_writing.py
-│   │   ├── rag.py
-│   │   ├── research_team.py
-│   │   ├── superviser.py
-│   │   ├── web_scraper.py
-│   │   └── web_search.py
-│   ├── prompts/                  # Prompt templates for agents
-│   │   └── rag.py
-│   ├── tools/                    # Utility tools: document, scraping, code
-│   │   ├── document_io.py
-│   │   ├── python_repl.py
-│   │   └── scrape.py
-│   ├── utils/                    # Utility scripts and environment setup
-│   │   └── env.py
-│   └── supervisor.py             # Supervisor logic for agent teams
-├── infra/
-│   ├── api/
-│   │   └── google_search.py    # Google search integration
-│   └── llm_clients/
-│       └── groq.py             # Groq LLM client setup
-├── requirements.txt            # pip-compatible dependencies
-├── main.py                     # Main file for execution
-├── examples/
-│   ├── paper_writing.py        # Example using PaperWritingTeamAgent
-│   ├── research_query.py       # Example using ResearchTeamAgent
-│   └── rag_query.py            # Example using RagAgent
+langgraph-agents/
+├── Makefile
+├── README.md
+├── development.md
+├── devtools/
+│   └── lint.py
+├── installation.md
+├── pyproject.toml
+├── src/
+│   ├── main.py
+│   ├── core/
+│   │   ├── supervisor.py
+│   │   ├── agents/
+│   │   │   ├── base.py
+│   │   │   ├── chart_generator.py
+│   │   │   ├── doc_writer.py
+│   │   │   ├── note_taker.py
+│   │   │   ├── paper_writing.py
+│   │   │   ├── rag.py
+│   │   │   ├── research_team.py
+│   │   │   ├── supervisor.py
+│   │   │   ├── web_scraper.py
+│   │   │   └── web_search.py
+│   │   ├── prompts/
+│   │   │   └── rag.py
+│   │   ├── tools/
+│   │   │   ├── document_io.py
+│   │   │   ├── math.py
+│   │   │   ├── python_repl.py
+│   │   │   └── scrape.py
+│   │   └── utils/
+│   │       └── env.py
+│   ├── infra/
+│   │   ├── api/
+│   │   │   └── google_search.py
+│   │   └── llm_clients/
+│   │       └── groq.py
+│   └── services/
 ├── tests/
-│    ├── core/
-│    │   ├── agents/                   # Agent classes: writing, searching, scraping
-│    │       └──  test_base.py
-
-└── README.md                   # This file
+│   ├── core/
+│   │   ├── agents/
+│   │   │   └── test_base.py
+│   │   └── test_supervisor.py
+│   └── test_placeholder.py
+├── uv.lock
+└── workspace/
 ```
