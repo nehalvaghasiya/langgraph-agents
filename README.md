@@ -137,7 +137,8 @@ src/
 │   └── rag_query.py            # Example using RagAgent
 ├── tests/
 │    ├── core/
-│       ├── agents/                   # Agent classes: writing, searching, scraping
-│           └──  test_base.py
+│    │   ├── agents/                   # Agent classes: writing, searching, scraping
+│    │       └──  test_base.py
+
 └── README.md                   # This file
 ```
