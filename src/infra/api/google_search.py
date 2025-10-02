@@ -31,6 +31,6 @@ def get_google_search():
         >>> results = search_tool.run("LangChain documentation")
     """
     wrapper = GoogleSearchAPIWrapper(
-        google_api_key=get_env("SERPAPI_API_KEY"), google_cse_id=get_env("GOOGLE_CSE_ID")
+        google_api_key=get_env("GOOGLE_API_KEY"), google_cse_id=get_env("GOOGLE_CSE_ID")
     )
     return GoogleSearchRun(api_wrapper=wrapper)
