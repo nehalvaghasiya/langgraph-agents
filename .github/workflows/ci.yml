@@ -60,4 +60,4 @@ jobs:
         run: uv run python devtools/lint.py
 
       - name: Run tests
-        run: PYTHONPATH=src uv run pytest tests/
+        run: GOOGLE_API_KEY=dummy GOOGLE_CSE_ID=dummy PYTHONPATH=src uv run pytest tests/
