@@ -47,6 +47,8 @@ text_splitter = RecursiveCharacterTextSplitter.from_tiktoken_encoder(
 )
 doc_splits = text_splitter.split_documents(docs_list)
 
+logger.debug(len(doc_splits)
+
 rag_agent = RagAgent(llm, doc_splits)
 rag_result = rag_agent.graph.invoke(
     {"messages": [HumanMessage(content="What does Lilian Weng say about types of reward hacking?")]}
