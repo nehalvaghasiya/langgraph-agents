@@ -31,6 +31,7 @@ team_result = paper_team.graph.invoke(
         ]
     }
 )
+logger.debug(team_result)
 print(team_result)
 
 # For RAG
