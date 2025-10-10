@@ -7,6 +7,9 @@ from core.agents.paper_writing import PaperWritingTeamAgent
 from core.agents.rag import RagAgent
 from infra.llm_clients.groq import get_llm
 
+from loguru import logger
+
+
 # Get LLM instance
 llm = get_llm()
 
