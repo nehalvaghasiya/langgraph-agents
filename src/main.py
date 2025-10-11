@@ -1,14 +1,12 @@
 from langchain_community.document_loaders import WebBaseLoader
 from langchain_core.messages import HumanMessage
 from langchain_text_splitters import RecursiveCharacterTextSplitter
+from loguru import logger
 
 from core.agents.doc_writer import DocWriterAgent
 from core.agents.paper_writing import PaperWritingTeamAgent
 from core.agents.rag import RagAgent
 from infra.llm_clients.groq import get_llm
-
-from loguru import logger
-
 
 # Get LLM instance
 llm = get_llm()
@@ -47,7 +45,7 @@ text_splitter = RecursiveCharacterTextSplitter.from_tiktoken_encoder(
 )
 doc_splits = text_splitter.split_documents(docs_list)
 
-logger.debug(len(doc_splits)
+logger.debug(len(doc_splits))
 
 rag_agent = RagAgent(llm, doc_splits)
 rag_result = rag_agent.graph.invoke(
