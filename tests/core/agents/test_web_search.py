@@ -11,7 +11,15 @@ class DummyModel:
     def invoke(self, messages):
         return self.output
 
-def test_search_agent():
+from unittest.mock import patch
+
+@patch("core.agents.web_search.get_google_search", autospec=True)
+def test_search_agent(mock_get_google_search):
+    class DummyTool:
+        name = "dummy_search"
+        def __call__(self, *a, **kw):
+            return "dummy search result"
+    mock_get_google_search.return_value = DummyTool()
     model = DummyModel()
     agent = web_search.SearchAgent(model)
     state = AgentState(messages=[MagicMock(tool_calls=[])])
