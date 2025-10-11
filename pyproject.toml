@@ -21,6 +21,7 @@ dependencies = [
     "langchain-text-splitters>=0.3.8",
     "langchain[openai]>=0.3.26",
     "langgraph>=0.5.3",
+    "loguru>=0.7.3",
     "python-dotenv>=1.1.1",
     "sentence-transformers>=5.0.0",
 ]
