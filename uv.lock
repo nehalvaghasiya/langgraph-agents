@@ -1065,6 +1065,7 @@ dependencies = [
     { name = "langchain-huggingface" },
     { name = "langchain-text-splitters" },
     { name = "langgraph" },
+    { name = "loguru" },
     { name = "python-dotenv" },
     { name = "sentence-transformers" },
 ]
@@ -1090,6 +1091,7 @@ requires-dist = [
     { name = "langchain-huggingface", specifier = ">=0.3.0" },
     { name = "langchain-text-splitters", specifier = ">=0.3.8" },
     { name = "langgraph", specifier = ">=0.5.3" },
+    { name = "loguru", specifier = ">=0.7.3" },
     { name = "python-dotenv", specifier = ">=1.1.1" },
     { name = "sentence-transformers", specifier = ">=5.0.0" },
 ]
@@ -1160,6 +1162,19 @@ dependencies = [
 sdist = { url = "https://files.pythonhosted.org/packages/fc/9e/11536528c6e351820ad3fca0d2807f0e0f0619ff907529c78f68ba648497/langsmith-0.4.6.tar.gz", hash = "sha256:9189dbc9c60f2086ca3a1f0110cfe3aff6b0b7c2e0e3384f9572e70502e7933c", size = 352364 }
 wheels = [
     { url = "https://files.pythonhosted.org/packages/a7/9b/f2be47db823e89448ea41bfd8fc5ce6a995556bd25be4c23e5b3bb5b6c9b/langsmith-0.4.6-py3-none-any.whl", hash = "sha256:900e83fe59ee672bcf2f75c8bb47cd012bf8154d92a99c0355fc38b6485cbd3e", size = 367901 },
+]
+
+[[package]]
+name = "loguru"
+version = "0.7.3"
+source = { registry = "https://pypi.org/simple" }
+dependencies = [
+    { name = "colorama", marker = "sys_platform == 'win32'" },
+    { name = "win32-setctime", marker = "sys_platform == 'win32'" },
+]
+sdist = { url = "https://files.pythonhosted.org/packages/3a/05/a1dae3dffd1116099471c643b8924f5aa6524411dc6c63fdae648c4f1aca/loguru-0.7.3.tar.gz", hash = "sha256:19480589e77d47b8d85b2c827ad95d49bf31b0dcde16593892eb51dd18706eb6", size = 63559 }
+wheels = [
+    { url = "https://files.pythonhosted.org/packages/0c/29/0348de65b8cc732daa3e33e67806420b2ae89bdce2b04af740289c5c6c8c/loguru-0.7.3-py3-none-any.whl", hash = "sha256:31a33c10c8e1e10422bfd431aeb5d351c7cf7fa671e3c4df004162264b28220c", size = 61595 },
 ]
 
 [[package]]
@@ -2987,6 +3002,15 @@ source = { registry = "https://pypi.org/simple" }
 sdist = { url = "https://files.pythonhosted.org/packages/15/22/9ee70a2574a4f4599c47dd506532914ce044817c7752a79b6a51286319bc/urllib3-2.5.0.tar.gz", hash = "sha256:3fc47733c7e419d4bc3f6b3dc2b4f890bb743906a30d56ba4a5bfa4bbff92760", size = 393185 }
 wheels = [
     { url = "https://files.pythonhosted.org/packages/a7/c2/fe1e52489ae3122415c51f387e221dd0773709bad6c6cdaa599e8a2c5185/urllib3-2.5.0-py3-none-any.whl", hash = "sha256:e6b01673c0fa6a13e374b50871808eb3bf7046c4b125b216f6bf1cc604cff0dc", size = 129795 },
+]
+
+[[package]]
+name = "win32-setctime"
+version = "1.2.0"
+source = { registry = "https://pypi.org/simple" }
+sdist = { url = "https://files.pythonhosted.org/packages/b3/8f/705086c9d734d3b663af0e9bb3d4de6578d08f46b1b101c2442fd9aecaa2/win32_setctime-1.2.0.tar.gz", hash = "sha256:ae1fdf948f5640aae05c511ade119313fb6a30d7eabe25fef9764dca5873c4c0", size = 4867 }
+wheels = [
+    { url = "https://files.pythonhosted.org/packages/e1/07/c6fe3ad3e685340704d314d765b7912993bcb8dc198f0e7a89382d37974b/win32_setctime-1.2.0-py3-none-any.whl", hash = "sha256:95d644c4e708aba81dc3704a116d8cbc974d70b3bdb8be1d150e36be6e9d1390", size = 4083 },
 ]
 
 [[package]]
