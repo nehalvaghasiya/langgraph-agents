@@ -15,6 +15,7 @@ llm = get_llm()
 doc_writer = DocWriterAgent(llm)
 query = "Write a document about cats."
 result = doc_writer.graph.invoke({"messages": [HumanMessage(content=query)]})
+# Log the results from Doc Writer
 logger.debug(result)
 print(result)
 
