@@ -30,6 +30,7 @@ team_result = paper_team.graph.invoke(
         ]
     }
 )
+# Log the results from Paper writer team
 logger.debug(team_result)
 print(team_result)
 
