@@ -143,7 +143,10 @@ langgraph-agents/
 ├── tests/
 │   ├── core/
 │   │   ├── agents/
-│   │   │   └── test_base.py
+│   │   │   ├── test_base.py
+│   │   │   ├── test_chart_generator.py
+│   │   │   ├── test_doc_writer.py
+│   │   │   └── test_note_taker.py
 │   │   └── test_supervisor.py
 ├── uv.lock
 └── workspace/
