@@ -53,5 +53,6 @@ rag_agent = RagAgent(llm, doc_splits)
 rag_result = rag_agent.graph.invoke(
     {"messages": [HumanMessage(content="What does Lilian Weng say about types of reward hacking?")]}
 )
+# Log the results from RAG
 logger.debug(rag_result)
 print("RAG result:", rag_result)
