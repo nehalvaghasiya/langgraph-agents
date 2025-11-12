@@ -93,6 +93,100 @@ result = search_agent.graph.invoke({"messages": [HumanMessage(content=query)]})
 print(result["messages"][-1].content)
 ```
 
+## Examples
+Examples for all agents are provided in the `examples/` directory. Each example demonstrates how to use a specific agent with realistic scenarios.
+
+### Running Examples
+Set your API keys and run any example with:
+```bash
+export GROQ_API_KEY="gsk-..."
+PYTHONPATH=src python3 uv run examples/<agent_name>.py
+```
+
+### Available Examples
+
+#### 1. **Document Writer** (`examples/doc_writer.py`)
+Generate comprehensive documents using the DocWriterAgent.
+```bash
+PYTHONPATH=src python3 uv run examples/doc_writer.py
+```
+**Use case:** Creating detailed documents, reports, or content.
+
+---
+
+#### 2. **Paper Writing Team** (`examples/paper_writing_team.py`)
+Collaborate with a team of agents to write poems and related content using PaperWritingTeamAgent.
+```bash
+PYTHONPATH=src python3 uv run examples/paper_writing_team.py
+```
+**Use case:** Complex writing tasks requiring multiple perspectives (outlines, poems, documents).
+
+---
+
+#### 3. **Research Team** (`examples/research_team.py`)
+Research a topic using the ResearchTeamAgent with web search and scraping capabilities.
+```bash
+PYTHONPATH=src python3 uv run examples/research_team.py
+```
+**Use case:** In-depth research with web search and content extraction.
+
+---
+
+#### 4. **Web Search** (`examples/web_search.py`)
+Perform web searches using the SearchAgent.
+```bash
+PYTHONPATH=src python3 uv run examples/web_search.py
+```
+**Use case:** Finding information on the web, answering current event questions.
+
+---
+
+#### 5. **RAG (Retrieval-Augmented Generation)** (`examples/rag.py`)
+Load documents from URLs and prepare them for retrieval-augmented generation using RagAgent.
+```bash
+PYTHONPATH=src python3 uv run examples/rag.py
+```
+**Use case:** Question-answering over specific documents or knowledge bases.
+
+---
+
+#### 6. **Note Taker** (`examples/note_taker.py`)
+Take structured notes from content using NoteTakerAgent.
+```bash
+PYTHONPATH=src python3 uv run examples/note_taker.py
+```
+**Use case:** Extracting key points and organizing information.
+
+---
+
+#### 7. **Chart Generator** (`examples/chart_generator.py`)
+Generate charts and visualizations using ChartGeneratorAgent.
+```bash
+PYTHONPATH=src python3 uv run examples/chart_generator.py
+```
+**Use case:** Creating visual representations of data and trends.
+
+---
+
+#### 8. **Web Scraper** (`examples/web_scraper.py`)
+Scrape and extract content from web pages using WebScraperAgent.
+```bash
+PYTHONPATH=src python3 uv run examples/web_scraper.py
+```
+**Use case:** Extracting specific information from websites.
+
+---
+
+### Running All Examples
+To run all examples at once:
+```bash
+for example in examples/*.py; do
+    echo "Running $example..."
+    PYTHONPATH=src python3 uv run "$example"
+    echo "---"
+done
+```
+
 ## Troubleshooting
 - **API Key Errors:** Ensure `GROQ_API_KEY` is set in your environment.
 - **Dependency Issues:** If using uv, run `uv sync` again. For pip, verify `requirements.txt` includes `langgraph`, `langchain`, and `groq`.
@@ -108,6 +202,16 @@ langgraph-agents/
 ├── development.md
 ├── devtools/
 │   └── lint.py
+├── examples/
+│   ├── __init__.py
+│   ├── chart_generator.py
+│   ├── doc_writer.py
+│   ├── note_taker.py
+│   ├── paper_writing_team.py
+│   ├── rag.py
+│   ├── research_team.py
+│   ├── web_scraper.py
+│   └── web_search.py
 ├── installation.md
 ├── pyproject.toml
 ├── src/
@@ -125,15 +229,15 @@ langgraph-agents/
 │   │   │   ├── supervisor.py
 │   │   │   ├── web_scraper.py
 │   │   │   └── web_search.py
-│   │   ├── prompts/
-│   │   │   └── rag.py
-│   │   ├── tools/
-│   │   │   ├── document_io.py
-│   │   │   ├── math.py
-│   │   │   ├── python_repl.py
-│   │   │   └── scrape.py
-│   │   └── utils/
-│   │       └── env.py
+│   ├── prompts/
+│   │   └── rag.py
+│   ├── tools/
+│   │   ├── document_io.py
+│   │   ├── math.py
+│   │   ├── python_repl.py
+│   │   └── scrape.py
+│   └── utils/
+│       └── env.py
 │   ├── infra/
 │   │   ├── api/
 │   │   │   └── google_search.py
