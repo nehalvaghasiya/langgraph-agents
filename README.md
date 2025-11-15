@@ -215,7 +215,6 @@ langgraph-agents/
 ├── installation.md
 ├── pyproject.toml
 ├── src/
-│   ├── main.py
 │   ├── core/
 │   │   ├── supervisor.py
 │   │   ├── agents/
