@@ -177,6 +177,15 @@ PYTHONPATH=src python3 uv run examples/web_scraper.py
 
 ---
 
+#### 9. **Math Agent** (`examples/math_agent.py`)
+Perform arithmetic operations using the MathAgent.
+```bash
+PYTHONPATH=src python3 uv run examples/math_agent.py
+```
+**Use case:** Solving mathematical problems with addition and multiplication operations.
+
+---
+
 ### Running All Examples
 To run all examples at once:
 ```bash
@@ -206,6 +215,7 @@ langgraph-agents/
 │   ├── __init__.py
 │   ├── chart_generator.py
 │   ├── doc_writer.py
+│   ├── math_agent.py
 │   ├── note_taker.py
 │   ├── paper_writing_team.py
 │   ├── rag.py
@@ -221,6 +231,7 @@ langgraph-agents/
 │   │   │   ├── base.py
 │   │   │   ├── chart_generator.py
 │   │   │   ├── doc_writer.py
+│   │   │   ├── math_agent.py
 │   │   │   ├── note_taker.py
 │   │   │   ├── paper_writing.py
 │   │   │   ├── rag.py
