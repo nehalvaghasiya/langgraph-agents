@@ -1,4 +1,5 @@
 import math
+
 from langchain_core.tools import tool
 
 
@@ -82,7 +83,7 @@ def power(base: float, exponent: float) -> float:
     Returns:
         float: The result of base raised to the exponent (base ** exponent).
     """
-    result = base ** exponent
+    result = base**exponent
     print(f"Power {base} ** {exponent} = {result}")
     return result
 
