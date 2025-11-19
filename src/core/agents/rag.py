@@ -16,12 +16,24 @@ from core.prompts.rag import RAGPrompts
 class RagAgent:
     """Class for RAG agent."""
 
-    def __init__(self, model: BaseChatModel, doc_splits: list[Document]):
+    def __init__(
+        self,
+        model: BaseChatModel,
+        doc_splits: list[Document],
+        embedding_model: str = "sentence-transformers/all-MiniLM-L6-v2",
+        search_kwargs: dict | None = None,
+        tool_name: str = "retrieve_blog_posts",
+        tool_description: str = "Search and return information about Lilian Weng blog posts.",
+    ):
         """Initialize a Retrieval-Augmented Generation (RAG) agent.
 
         Args:
             model (BaseChatModel): The language model to use for generation and scoring.
             doc_splits (list[Document]): List of document splits for retrieval and embedding.
+            embedding_model (str): The name of the HuggingFace embedding model to use.
+            search_kwargs (dict | None): Arguments for the retriever (e.g., {"k": 4}).
+            tool_name (str): The name of the retriever tool.
+            tool_description (str): The description of the retriever tool.
 
         Raises:
             Exception: If embeddings or vectorstore creation fails.
@@ -34,7 +46,7 @@ class RagAgent:
 
         try:
             embeddings = HuggingFaceEmbeddings(
-                model_name="sentence-transformers/all-MiniLM-L6-v2",
+                model_name=embedding_model,
                 model_kwargs=model_kwargs,
                 encode_kwargs=encode_kwargs,
             )
@@ -51,12 +63,12 @@ class RagAgent:
             print(f"Vectorstore creation failed: {e}")
             raise
 
-        retriever = vectorstore.as_retriever(search_kwargs={"k": 4})
+        retriever = vectorstore.as_retriever(search_kwargs=search_kwargs or {"k": 4})
 
         self.retriever_tool = create_retriever_tool(
             retriever,
-            "retrieve_blog_posts",
-            "Search and return information about Lilian Weng blog posts.",
+            tool_name,
+            tool_description,
         )
 
         workflow = StateGraph(MessagesState)
