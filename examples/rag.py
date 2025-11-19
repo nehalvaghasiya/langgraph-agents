@@ -16,10 +16,6 @@ def main():
     llm = get_llm()
     logger.debug("LLM instance created")
 
-    # Create RAG agent
-    rag_agent = RagAgent(llm)
-    logger.debug("RagAgent initialized")
-    
     # Load documents from URLs
     urls = [
         "https://lilianweng.github.io/posts/2024-11-28-reward-hacking/",
@@ -44,6 +40,14 @@ def main():
         splits = text_splitter.split_documents(docs_list)
         
         logger.info(f"Split documents into {len(splits)} chunks")
+
+        # Create RAG agent with configuration
+        rag_agent = RagAgent(
+            model=llm, 
+            doc_splits=splits,
+            search_kwargs={"k": 3}
+        )
+        logger.debug("RagAgent initialized")
         
         # Print summary
         print("\n" + "="*80)
