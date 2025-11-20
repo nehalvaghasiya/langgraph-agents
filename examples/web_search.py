@@ -15,8 +15,9 @@ def main():
     llm = get_llm()
     logger.debug("LLM instance created")
 
-    # Create Search agent
-    search_agent = SearchAgent(llm)
+    # Create Search agent with explicit tools (demonstrating configuration)
+    from infra.api.google_search import get_google_search
+    search_agent = SearchAgent(llm, tools=[get_google_search()])
     logger.debug("SearchAgent initialized")
     
     # Define search query
