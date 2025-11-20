@@ -3,7 +3,7 @@ from collections.abc import Callable
 from langchain_core.language_models import BaseChatModel
 
 from core.agents.base import BaseAgent
-from core.tools.scrape import scrape_webpages
+from core.tools.scrape import create_scraper_tool
 
 
 class WebScraperAgent(BaseAgent):
@@ -15,5 +15,5 @@ class WebScraperAgent(BaseAgent):
             system
             or "You are a web scraper. Use tools to scrape webpages. Don't ask follow-up questions."
         )
-        tools = [scrape_webpages]
+        tools = [create_scraper_tool()]
         super().__init__(model, tools, system)
