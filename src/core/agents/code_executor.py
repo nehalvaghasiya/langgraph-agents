@@ -3,7 +3,7 @@ from collections.abc import Callable
 from langchain_core.language_models import BaseChatModel
 
 from core.agents.base import BaseAgent
-from core.tools.python_repl import python_repl_tool
+from core.tools.python_repl import create_python_repl_tool
 
 
 class CodeExecutorAgent(BaseAgent):
@@ -32,5 +32,5 @@ class CodeExecutorAgent(BaseAgent):
             "Provide clear explanations of what the code does and its output. "
             "Debug code issues and suggest improvements when needed."
         )
-        tools = [python_repl_tool]
+        tools = [create_python_repl_tool()]
         super().__init__(model, tools, system)
