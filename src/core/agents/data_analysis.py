@@ -3,15 +3,15 @@ from collections.abc import Callable
 from langchain_core.language_models import BaseChatModel
 
 from core.agents.base import BaseAgent
-from core.tools.python_repl import python_repl_tool
 from core.tools.math import (
     add_numbers,
-    subtract_numbers,
-    multiply_numbers,
-    divide_numbers,
     average,
+    divide_numbers,
+    multiply_numbers,
     round_number,
+    subtract_numbers,
 )
+from core.tools.python_repl import create_python_repl_tool
 
 
 class DataAnalysisAgent(BaseAgent):
@@ -41,7 +41,7 @@ class DataAnalysisAgent(BaseAgent):
             "Use visualizations and statistics to support your analysis."
         )
         tools = [
-            python_repl_tool,
+            create_python_repl_tool(),
             add_numbers,
             subtract_numbers,
             multiply_numbers,
