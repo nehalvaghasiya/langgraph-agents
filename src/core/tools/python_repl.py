@@ -1,7 +1,9 @@
-from typing import Annotated, Callable
+from collections.abc import Callable
+from typing import Annotated
 
 from langchain_core.tools import tool
 from langchain_experimental.utilities import PythonREPL
+
 
 def create_python_repl_tool(
     name: str = "python_repl_tool",
@@ -27,8 +29,9 @@ def create_python_repl_tool(
         "persistence across multiple executions."
     )
 
-    @tool(name=name, description=description or default_description)
-    def python_repl_tool(
+    tool_description = description or default_description
+
+    def tool_impl(
         code: Annotated[str, "The python code to execute to generate your chart."],
     ):
         """Use this to execute python code. If you want to see the output of a value,
@@ -60,4 +63,10 @@ def create_python_repl_tool(
             return f"Failed to execute. Error: {repr(e)}"
         return f"Successfully executed:\n```python\n{code}\n```\nStdout: {result}"
 
-    return python_repl_tool
+    # Apply the tool decorator with the name
+    tool_impl.__name__ = name
+    tool_impl.__doc__ = tool_description
+    decorated_tool = tool()(tool_impl)
+    decorated_tool.description = tool_description
+
+    return decorated_tool
