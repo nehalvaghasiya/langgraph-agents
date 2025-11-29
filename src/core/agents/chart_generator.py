@@ -4,7 +4,7 @@ from langchain_core.language_models import BaseChatModel
 
 from core.agents.base import BaseAgent
 from core.tools.document_io import read_document
-from core.tools.python_repl import python_repl_tool
+from core.tools.python_repl import create_python_repl_tool
 
 
 class ChartGeneratorAgent(BaseAgent):
@@ -23,5 +23,5 @@ class ChartGeneratorAgent(BaseAgent):
         )
 
         # Tools required for generating chart
-        tools = [read_document, python_repl_tool]
+        tools = [read_document, create_python_repl_tool()]
         super().__init__(model, tools, system)
