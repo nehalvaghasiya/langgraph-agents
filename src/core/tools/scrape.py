@@ -1,4 +1,4 @@
-from typing import Callable
+from collections.abc import Callable
 
 from langchain_community.document_loaders import WebBaseLoader
 from langchain_core.tools import tool
