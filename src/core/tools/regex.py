@@ -26,12 +26,12 @@ def compile_regex_pattern(
     the compiled pattern with details about what it matches.
 
     Args:
-        pattern: The regex pattern string to compile.
-        flags: Optional flags to apply (e.g., 'IGNORECASE,MULTILINE').
+        pattern (str): The regex pattern string to compile.
+        flags (str): Optional flags to apply (e.g., 'IGNORECASE,MULTILINE').
 
     Returns:
-        Status message indicating if pattern compiled successfully with pattern
-        details.
+        str: Status message indicating if pattern compiled successfully with
+            pattern details.
     """
     try:
         # Parse flags
@@ -78,13 +78,13 @@ def search_files_by_pattern(
     extension, naming pattern, or path structure.
 
     Args:
-        pattern: The regex pattern to match against file paths.
-        search_path: Directory to start searching from (uses absolute path).
-        recursive: If True, searches all subdirectories.
-        max_results: Maximum number of results to return.
+        pattern (str): The regex pattern to match against file paths.
+        search_path (str): Directory to start searching from (uses absolute path).
+        recursive (bool): If True, searches all subdirectories.
+        max_results (int): Maximum number of results to return.
 
     Returns:
-        Formatted list of matching file paths with count.
+        str: Formatted list of matching file paths with count.
     """
     try:
         # Convert to absolute path
@@ -151,12 +151,12 @@ def search_text_in_file(
     files.
 
     Args:
-        file_path: Path to the file to search in.
-        pattern: The regex pattern to search for.
-        context_lines: Number of lines to show around each match.
+        file_path (str): Path to the file to search in.
+        pattern (str): The regex pattern to search for.
+        context_lines (int): Number of lines to show around each match.
 
     Returns:
-        Formatted results showing matches with context.
+        str: Formatted results showing matches with context.
     """
     try:
         abs_path = os.path.abspath(file_path)
@@ -226,12 +226,12 @@ def extract_pattern_matches(
     Useful for extracting specific data like emails, URLs, function names, etc.
 
     Args:
-        text: The text to search in.
-        pattern: The regex pattern to extract matches from.
-        group_number: Which capture group to return (0 for entire match).
+        text (str): The text to search in.
+        pattern (str): The regex pattern to extract matches from.
+        group_number (int): Which capture group to return (0 for entire match).
 
     Returns:
-        Formatted list of extracted matches.
+        str: Formatted list of extracted matches.
     """
     try:
         # Compile pattern
@@ -286,13 +286,13 @@ def replace_pattern_in_file(
     By default runs in dry-run mode to preview changes before applying.
 
     Args:
-        file_path: Path to the file to modify.
-        pattern: The regex pattern to find.
-        replacement: The replacement string (can use groups: \\1, \\2, etc.).
-        dry_run: If True, preview changes without modifying file.
+        file_path (str): Path to the file to modify.
+        pattern (str): The regex pattern to find.
+        replacement (str): The replacement string (can use groups: \\1, \\2, etc.).
+        dry_run (bool): If True, preview changes without modifying file.
 
     Returns:
-        Summary of changes made or would be made.
+        str: Summary of changes made or would be made.
     """
     try:
         abs_path = os.path.abspath(file_path)
@@ -361,10 +361,10 @@ def validate_and_explain_pattern(
     the pattern matches and common examples.
 
     Args:
-        pattern: The regex pattern to validate and explain.
+        pattern (str): The regex pattern to validate and explain.
 
     Returns:
-        Detailed explanation of the pattern.
+        str: Detailed explanation of the pattern.
     """
     try:
         # Validate compilation
