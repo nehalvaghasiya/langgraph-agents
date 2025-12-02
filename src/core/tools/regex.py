@@ -1,4 +1,10 @@
-"""Regex-based searching tools for files and documents."""
+"""Regex-based searching tools for files and documents.
+
+This module provides a comprehensive set of regex tools for pattern matching,
+file searching, text extraction, and validation. Tools include pattern
+compilation, file system searches, content extraction, and safe file
+modifications with preview capability.
+"""
 
 import os
 import re
@@ -16,15 +22,16 @@ def compile_regex_pattern(
 ) -> str:
     """Compile and validate a regex pattern.
 
-    This tool compiles a regex pattern and validates it. Returns a summary of the
-    compiled pattern with details about what it matches.
+    This tool compiles a regex pattern and validates it. Returns a summary of
+    the compiled pattern with details about what it matches.
 
     Args:
-        pattern: The regex pattern string to compile
-        flags: Optional flags to apply (e.g., 'IGNORECASE,MULTILINE')
+        pattern: The regex pattern string to compile.
+        flags: Optional flags to apply (e.g., 'IGNORECASE,MULTILINE').
 
     Returns:
-        str: Status message indicating if pattern compiled successfully and pattern details
+        Status message indicating if pattern compiled successfully with pattern
+        details.
     """
     try:
         # Parse flags
@@ -66,18 +73,18 @@ def search_files_by_pattern(
 ) -> str:
     """Search for files matching a regex pattern.
 
-    Searches the filesystem starting from the specified path and returns all files
-    matching the provided regex pattern. Useful for finding files by extension,
-    naming pattern, or path structure.
+    Searches the filesystem starting from the specified path and returns all
+    files matching the provided regex pattern. Useful for finding files by
+    extension, naming pattern, or path structure.
 
     Args:
-        pattern: The regex pattern to match against file paths
-        search_path: Directory to start searching from (uses absolute path)
-        recursive: If True, searches all subdirectories
-        max_results: Maximum number of results to return
+        pattern: The regex pattern to match against file paths.
+        search_path: Directory to start searching from (uses absolute path).
+        recursive: If True, searches all subdirectories.
+        max_results: Maximum number of results to return.
 
     Returns:
-        str: Formatted list of matching file paths with count
+        Formatted list of matching file paths with count.
     """
     try:
         # Convert to absolute path
@@ -140,15 +147,16 @@ def search_text_in_file(
     """Search for regex pattern matches within a file.
 
     Finds all occurrences of a regex pattern in a file and returns the matches
-    with context. Useful for finding specific content within documents or code files.
+    with context. Useful for finding specific content within documents or code
+    files.
 
     Args:
-        file_path: Path to the file to search
-        pattern: The regex pattern to search for
-        context_lines: Number of lines to show around each match
+        file_path: Path to the file to search in.
+        pattern: The regex pattern to search for.
+        context_lines: Number of lines to show around each match.
 
     Returns:
-        str: Formatted results showing matches with context
+        Formatted results showing matches with context.
     """
     try:
         abs_path = os.path.abspath(file_path)
@@ -218,12 +226,12 @@ def extract_pattern_matches(
     Useful for extracting specific data like emails, URLs, function names, etc.
 
     Args:
-        text: The text to search in
-        pattern: The regex pattern to extract matches from
-        group_number: Which capture group to return (0 for entire match)
+        text: The text to search in.
+        pattern: The regex pattern to extract matches from.
+        group_number: Which capture group to return (0 for entire match).
 
     Returns:
-        str: Formatted list of extracted matches
+        Formatted list of extracted matches.
     """
     try:
         # Compile pattern
@@ -278,13 +286,13 @@ def replace_pattern_in_file(
     By default runs in dry-run mode to preview changes before applying.
 
     Args:
-        file_path: Path to the file to modify
-        pattern: The regex pattern to find
-        replacement: The replacement string
-        dry_run: If True, preview changes without modifying file
+        file_path: Path to the file to modify.
+        pattern: The regex pattern to find.
+        replacement: The replacement string (can use groups: \\1, \\2, etc.).
+        dry_run: If True, preview changes without modifying file.
 
     Returns:
-        str: Summary of changes made or would be made
+        Summary of changes made or would be made.
     """
     try:
         abs_path = os.path.abspath(file_path)
@@ -353,10 +361,10 @@ def validate_and_explain_pattern(
     the pattern matches and common examples.
 
     Args:
-        pattern: The regex pattern to validate and explain
+        pattern: The regex pattern to validate and explain.
 
     Returns:
-        str: Detailed explanation of the pattern
+        Detailed explanation of the pattern.
     """
     try:
         # Validate compilation
