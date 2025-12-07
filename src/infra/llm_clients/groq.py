@@ -25,10 +25,14 @@ def get_llm() -> ChatOpenAI:
         >>> response = llm.invoke("What is machine learning?")
         >>> print(response.content)
     """
+    # Read model and base URL from environment variables (OpenAI-compatible names)
+    model = get_env("OPENAI_MODEL", "moonshotai/kimi-k2-instruct-0905")
+    base_url = get_env("OPENAI_BASE_URL", "https://api.groq.com/openai/v1")
+
     return ChatOpenAI(
-        model="moonshotai/kimi-k2-instruct-0905",
+        model=model,
         temperature=0.7,
         max_completion_tokens=4096,
         api_key=SecretStr(get_env("OPENAI_API_KEY")),  # Wrap in SecretStr
-        base_url="https://api.groq.com/openai/v1",
+        base_url=base_url,
     )
