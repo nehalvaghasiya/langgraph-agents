@@ -13,7 +13,6 @@ ENV/
 # Environment variables and secrets
 .env
 *.env
-*.env
 
 # Distribution and packaging
 build/
