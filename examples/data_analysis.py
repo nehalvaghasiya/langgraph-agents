@@ -8,7 +8,7 @@ Usage:
     PYTHONPATH=src python3 examples/data_analysis.py
 """
 
-from infra.llm_clients.groq import get_llm
+from infra.llm_clients.openai import get_llm
 from core.agents.data_analysis import DataAnalysisAgent
 from langchain_core.messages import HumanMessage
 
