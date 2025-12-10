@@ -8,7 +8,7 @@ Usage:
     PYTHONPATH=src python3 examples/math_agent.py
 """
 
-from infra.llm_clients.groq import get_llm
+from infra.llm_clients.openai import get_llm
 from core.agents.math_agent import MathAgent
 from langchain_core.messages import HumanMessage
 
