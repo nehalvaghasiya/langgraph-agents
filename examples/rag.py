@@ -5,7 +5,7 @@ from langchain_text_splitters import RecursiveCharacterTextSplitter
 from loguru import logger
 
 from core.agents.rag import RagAgent
-from infra.llm_clients.groq import get_llm
+from infra.llm_clients.openai import get_llm
 
 
 def main():
