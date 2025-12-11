@@ -3,7 +3,7 @@
 Demonstrates planning, reasoning, acting, and observing in task breakdown.
 """
 
-from infra.llm_clients.groq import get_llm
+from infra.llm_clients.openai import get_llm
 from core.agents.task_planner import TaskPlannerAgent
 from langchain_core.messages import HumanMessage
 
