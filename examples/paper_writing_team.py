@@ -4,7 +4,7 @@ from langchain_core.messages import HumanMessage
 from loguru import logger
 
 from core.agents.paper_writing import PaperWritingTeamAgent
-from infra.llm_clients.groq import get_llm
+from infra.llm_clients.openai import get_llm
 
 
 def main():
