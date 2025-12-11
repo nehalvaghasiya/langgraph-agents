@@ -4,7 +4,7 @@ Demonstrates searching for files, extracting patterns from documents,
 and pattern validation with an AI agent.
 """
 
-from infra.llm_clients.groq import get_llm
+from infra.llm_clients.openai import get_llm
 from core.agents.regex_search import RegexSearchAgent
 from langchain_core.messages import HumanMessage
 
