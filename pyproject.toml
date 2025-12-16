@@ -10,7 +10,7 @@ license = "MIT"
 requires-python = ">=3.10"
 
 
-# ---- Main dependencies ----
+# Main dependencies
 
 dependencies = [
     "beautifulsoup4>=4.13.4",
@@ -27,7 +27,7 @@ dependencies = [
 ]
 
 
-# ---- Dev dependencies ----
+# Dev dependencies
 
 [dependency-groups]
 dev = [
@@ -41,7 +41,7 @@ dev = [
 ]
 
 
-# ---- Settings ----
+# Settings
 
 [tool.ruff]
 # Set as desired, typically 88 (black standard) or 100 (wide).
