@@ -14,30 +14,22 @@ from core.tools.regex import (
 
 def main():
     """Run regex search examples."""
-    print("\n" + "=" * 80)
     print("REGEX SEARCH TOOL EXAMPLES")
-    print("=" * 80)
 
     # Example 1: Validate and explain a regex pattern
-    print("\n" + "=" * 80)
     print("Example 1: Validate and Explain a Regex Pattern")
-    print("=" * 80)
     pattern = r".*\.py$"
     result = validate_and_explain_pattern.invoke({"pattern": pattern})
     print(result)
 
     # Example 2: Compile a regex pattern
-    print("\n" + "=" * 80)
     print("Example 2: Compile a Regex Pattern")
-    print("=" * 80)
     pattern = r"^test_.*\.py$"
     result = compile_regex_pattern.invoke({"pattern": pattern})
     print(result)
 
     # Example 3: Search for Python files
-    print("\n" + "=" * 80)
     print("Example 3: Search for Python Files in src directory")
-    print("=" * 80)
     pattern = r".*\.py$"
     result = search_files_by_pattern.invoke(
         {"pattern": pattern, "search_path": "src", "max_results": 20}
@@ -45,9 +37,7 @@ def main():
     print(result)
 
     # Example 4: Search for test files
-    print("\n" + "=" * 80)
     print("Example 4: Search for Test Files")
-    print("=" * 80)
     pattern = r"^test_.*\.py$"
     result = search_files_by_pattern.invoke(
         {"pattern": pattern, "search_path": "tests", "max_results": 15}
@@ -55,9 +45,7 @@ def main():
     print(result)
 
     # Example 5: Extract patterns from text
-    print("\n" + "=" * 80)
     print("Example 5: Extract Python Function Definitions")
-    print("=" * 80)
     sample_code = """
 def hello_world():
     pass
@@ -79,9 +67,7 @@ class MyClass:
     print(result)
 
     # Example 6: Extract email-like patterns
-    print("\n" + "=" * 80)
     print("Example 6: Extract Email Addresses")
-    print("=" * 80)
     sample_text = """
 Contact us at:
 - support@example.com
@@ -94,9 +80,7 @@ For urgent matters: urgent@example.com
     print(result)
 
     # Example 7: Extract numbers and digits
-    print("\n" + "=" * 80)
     print("Example 7: Extract Numbers from Text")
-    print("=" * 80)
     sample_text = """
 Prices: $10.99, $25.00, $100.50
 Quantities: 5 items, 12 boxes, 999 units
@@ -107,9 +91,7 @@ Phone: 555-123-4567
     print(result)
 
     # Example 8: Search for patterns in a file
-    print("\n" + "=" * 80)
     print("Example 8: Search for Imports in a Python File")
-    print("=" * 80)
     try:
         pattern = r"^from .* import|^import .*"
         result = search_text_in_file.invoke(
@@ -127,9 +109,7 @@ Phone: 555-123-4567
         print(f"Error: {e}")
 
     # Example 9: Validate complex patterns
-    print("\n" + "=" * 80)
     print("Example 9: Validate Complex Patterns")
-    print("=" * 80)
 
     patterns = [
         (r"^\d{3}-\d{3}-\d{4}$", "US Phone Number"),
@@ -146,7 +126,6 @@ Phone: 555-123-4567
         first_line = result.split("\n")[0]
         print(f"Status: {first_line}")
 
-    print("\n" + "=" * 80)
     print("Examples completed!")
     print("=" * 80 + "\n")
 
