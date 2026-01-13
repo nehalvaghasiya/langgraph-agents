@@ -22,27 +22,21 @@ def main():
     code_executor = CodeExecutorAgent(llm)
 
     # Example 1: Simple Python execution
-    print("=" * 60)
     print("Example 1: Simple Python Execution")
-    print("=" * 60)
     query1 = "Write a Python program that creates a list of numbers from 1 to 10 and prints their squares."
     print(f"Query: {query1}\n")
     result1 = code_executor.graph.invoke({"messages": [HumanMessage(content=query1)]})
     print(f"Response: {result1['messages'][-1].content}\n")
 
     # Example 2: String manipulation
-    print("=" * 60)
     print("Example 2: String Manipulation")
-    print("=" * 60)
     query2 = "Write Python code to reverse a string and check if it's a palindrome. Test with 'racecar'."
     print(f"Query: {query2}\n")
     result2 = code_executor.graph.invoke({"messages": [HumanMessage(content=query2)]})
     print(f"Response: {result2['messages'][-1].content}\n")
 
     # Example 3: Debugging code
-    print("=" * 60)
     print("Example 3: Code Debugging")
-    print("=" * 60)
     query3 = "Fix this Python code that should find the sum of even numbers: " \
              "numbers = [1, 2, 3, 4, 5, 6]; sum = 0; for n in numbers if n % 2 == 0: sum += n; print(sum)"
     print(f"Query: {query3}\n")
@@ -50,9 +44,7 @@ def main():
     print(f"Response: {result3['messages'][-1].content}\n")
 
     # Example 4: Data structure operations
-    print("=" * 60)
     print("Example 4: Dictionary Operations")
-    print("=" * 60)
     query4 = "Write Python code to count the frequency of each character in the string 'hello world'."
     print(f"Query: {query4}\n")
     result4 = code_executor.graph.invoke({"messages": [HumanMessage(content=query4)]})
