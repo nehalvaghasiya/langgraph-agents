@@ -36,11 +36,8 @@ def main():
     # Log and print results
     logger.debug("Agent execution completed")
     logger.info(f"Result: {team_result}")
-    print("\n" + "="*80)
     print("PAPER WRITING TEAM AGENT RESULT")
-    print("="*80)
     print(team_result)
-    print("="*80 + "\n")
 
 
 if __name__ == "__main__":

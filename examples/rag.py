@@ -50,12 +50,9 @@ def main():
         logger.debug("RagAgent initialized")
         
         # Print summary
-        print("\n" + "="*80)
         print("RAG AGENT EXAMPLE")
-        print("="*80)
         print(f"Loaded {len(docs_list)} documents from {len(urls)} URLs")
         print(f"Created {len(splits)} document chunks for RAG")
-        print("="*80 + "\n")
         
     except Exception as e:
         logger.error(f"Error loading documents: {e}")

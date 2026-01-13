@@ -37,11 +37,8 @@ def main():
     # Log and print results
     logger.debug("Agent execution completed")
     logger.info(f"Result: {result}")
-    print("\n" + "="*80)
     print("SEARCH AGENT RESULT")
-    print("="*80)
     print(result)
-    print("="*80 + "\n")
 
 
 if __name__ == "__main__":
