@@ -13,6 +13,7 @@ from typing import Literal
 from langchain_core.language_models import BaseChatModel
 from langchain_core.messages import HumanMessage, SystemMessage
 from langgraph.graph import END, START, StateGraph
+from langgraph.graph.state import CompiledStateGraph
 from typing_extensions import NotRequired, TypedDict
 
 from core.prompts.summarization import SummarizationPrompts
@@ -123,7 +124,7 @@ class SummarizationAgent:
         self.chunker = SmartChunker()
         self.graph = self._build_graph()
 
-    def _build_graph(self) -> StateGraph:
+    def _build_graph(self) -> CompiledStateGraph:
         """Build and compile the LangGraph workflow.
 
         Returns:
@@ -173,9 +174,7 @@ class SummarizationAgent:
 
         return workflow.compile()
 
-    def _route_after_router(
-        self, state: SummarizationState
-    ) -> Literal["direct", "chunk"]:
+    def _route_after_router(self, state: SummarizationState) -> Literal["direct", "chunk"]:
         """Route after router based on document length.
 
         Args:
@@ -191,9 +190,7 @@ class SummarizationAgent:
             return "direct"
         return "chunk"
 
-    def _route_to_strategy(
-        self, state: SummarizationState
-    ) -> SummarizationStrategy:
+    def _route_to_strategy(self, state: SummarizationState) -> SummarizationStrategy:
         """Route to the selected strategy.
 
         Args:
@@ -204,9 +201,7 @@ class SummarizationAgent:
         """
         return state.get("selected_strategy", "MAP_REDUCE")
 
-    def _route_after_reflection(
-        self, state: SummarizationState
-    ) -> Literal["revise", "end"]:
+    def _route_after_reflection(self, state: SummarizationState) -> Literal["revise", "end"]:
         """Route after reflection based on critique.
 
         Args:
@@ -280,13 +275,18 @@ class SummarizationAgent:
         )
 
         try:
-            response = self.model.invoke([
-                SystemMessage(content=SummarizationPrompts.ROUTER_SYSTEM),
-                HumanMessage(content=prompt),
-            ])
+            response = self.model.invoke(
+                [
+                    SystemMessage(content=SummarizationPrompts.ROUTER_SYSTEM),
+                    HumanMessage(content=prompt),
+                ]
+            )
 
             # Parse JSON response
-            result = self._parse_router_response(response.content)
+            response_text = (
+                response.content if isinstance(response.content, str) else str(response.content)
+            )
+            result = self._parse_router_response(response_text)
             content_type = result.get("content_type", "informational")
             strategy = result.get("selected_strategy", "MAP_REDUCE")
             focus = result.get("summary_focus", "Summarize the key points.")
@@ -333,7 +333,7 @@ class SummarizationAgent:
             return json.loads(response.strip())
         except json.JSONDecodeError:
             # Try to find JSON object in response
-            match = re.search(r'\{[^{}]*\}', response, re.DOTALL)
+            match = re.search(r"\{[^{}]*\}", response, re.DOTALL)
             if match:
                 try:
                     return json.loads(match.group())
@@ -376,10 +376,12 @@ class SummarizationAgent:
         )
 
         try:
-            response = self.model.invoke([
-                SystemMessage(content="You are a concise summarization expert."),
-                HumanMessage(content=prompt),
-            ])
+            response = self.model.invoke(
+                [
+                    SystemMessage(content="You are a concise summarization expert."),
+                    HumanMessage(content=prompt),
+                ]
+            )
             summary = response.content
         except Exception as e:
             summary = f"Error during summarization: {e}"
@@ -414,10 +416,12 @@ class SummarizationAgent:
             )
 
             try:
-                response = self.model.invoke([
-                    SystemMessage(content="You are a focused summarization assistant."),
-                    HumanMessage(content=prompt),
-                ])
+                response = self.model.invoke(
+                    [
+                        SystemMessage(content="You are a focused summarization assistant."),
+                        HumanMessage(content=prompt),
+                    ]
+                )
                 chunk_summaries.append(response.content)
             except Exception as e:
                 chunk_summaries.append(f"[Chunk {i + 1} failed: {e}]")
@@ -425,8 +429,7 @@ class SummarizationAgent:
         # REDUCE phase - combine summaries
         print("[MapReduce] Reducing summaries...")
         formatted_summaries = "\n\n".join(
-            f"Section {i + 1}:\n{summary}"
-            for i, summary in enumerate(chunk_summaries)
+            f"Section {i + 1}:\n{summary}" for i, summary in enumerate(chunk_summaries)
         )
 
         reduce_prompt = SummarizationPrompts.REDUCE_PROMPT.format(
@@ -435,10 +438,12 @@ class SummarizationAgent:
         )
 
         try:
-            response = self.model.invoke([
-                SystemMessage(content="You are an expert at synthesizing information."),
-                HumanMessage(content=reduce_prompt),
-            ])
+            response = self.model.invoke(
+                [
+                    SystemMessage(content="You are an expert at synthesizing information."),
+                    HumanMessage(content=reduce_prompt),
+                ]
+            )
             draft = response.content
         except Exception:
             draft = "\n\n".join(chunk_summaries)
@@ -485,10 +490,12 @@ class SummarizationAgent:
                 )
 
             try:
-                response = self.model.invoke([
-                    SystemMessage(content="You are a narrative summarization expert."),
-                    HumanMessage(content=prompt),
-                ])
+                response = self.model.invoke(
+                    [
+                        SystemMessage(content="You are a narrative summarization expert."),
+                        HumanMessage(content=prompt),
+                    ]
+                )
                 running_summary = response.content
             except Exception as e:
                 if i == 0:
@@ -530,10 +537,12 @@ class SummarizationAgent:
             )
 
             try:
-                response = self.model.invoke([
-                    SystemMessage(content="You are a concise summarization assistant."),
-                    HumanMessage(content=prompt),
-                ])
+                response = self.model.invoke(
+                    [
+                        SystemMessage(content="You are a concise summarization assistant."),
+                        HumanMessage(content=prompt),
+                    ]
+                )
                 current_level.append(response.content)
             except Exception:
                 current_level.append(f"[Leaf {i + 1} summary]")
@@ -548,9 +557,7 @@ class SummarizationAgent:
 
             for i in range(0, len(current_level), group_size):
                 group = current_level[i : i + group_size]
-                formatted_group = "\n\n".join(
-                    f"Summary {j + 1}:\n{s}" for j, s in enumerate(group)
-                )
+                formatted_group = "\n\n".join(f"Summary {j + 1}:\n{s}" for j, s in enumerate(group))
 
                 prompt = SummarizationPrompts.HIERARCHICAL_MERGE_PROMPT.format(
                     summary_focus=focus,
@@ -558,10 +565,12 @@ class SummarizationAgent:
                 )
 
                 try:
-                    response = self.model.invoke([
-                        SystemMessage(content="You are an expert at merging summaries."),
-                        HumanMessage(content=prompt),
-                    ])
+                    response = self.model.invoke(
+                        [
+                            SystemMessage(content="You are an expert at merging summaries."),
+                            HumanMessage(content=prompt),
+                        ]
+                    )
                     next_level.append(response.content)
                 except Exception:
                     # Fallback: concatenate
@@ -609,10 +618,12 @@ class SummarizationAgent:
         )
 
         try:
-            response = self.model.invoke([
-                SystemMessage(content="You are a Senior Editor with high standards."),
-                HumanMessage(content=prompt),
-            ])
+            response = self.model.invoke(
+                [
+                    SystemMessage(content="You are a Senior Editor with high standards."),
+                    HumanMessage(content=prompt),
+                ]
+            )
             critique = response.content.strip()
         except Exception:
             critique = "APPROVED"
@@ -650,10 +661,12 @@ class SummarizationAgent:
         )
 
         try:
-            response = self.model.invoke([
-                SystemMessage(content="You are an expert editor improving summaries."),
-                HumanMessage(content=prompt),
-            ])
+            response = self.model.invoke(
+                [
+                    SystemMessage(content="You are an expert editor improving summaries."),
+                    HumanMessage(content=prompt),
+                ]
+            )
             revised = response.content
         except Exception:
             revised = draft
@@ -707,4 +720,5 @@ class SummarizationAgent:
             "original_text": text,
         }
 
-        return self.graph.invoke(initial_state)
+        result = self.graph.invoke(initial_state)
+        return result  # type: ignore[return-value]
