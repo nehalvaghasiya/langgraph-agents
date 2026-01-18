@@ -187,11 +187,10 @@ PYTHONPATH=src uv run python3 examples/math_agent.py
 ---
 
 #### 10. **Summarization Agent** (`examples/summarization.py`)
-Perform arithmetic operations using the MathAgent.
 ```bash
 PYTHONPATH=src uv run python3 examples/summarization.py
 ```
-**Use case:** Solving mathematical problems with addition and multiplication operations.
+**Use case:** Summarization of long text.
 
 ---
 
