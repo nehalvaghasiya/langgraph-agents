@@ -100,7 +100,7 @@ Examples for all agents are provided in the `examples/` directory. Each example 
 Set your API keys and run any example with:
 ```bash
 export GROQ_API_KEY="gsk-..."
-PYTHONPATH=src python3 uv run examples/<agent_name>.py
+PYTHONPATH=src uv run python3 examples/<agent_name>.py
 ```
 
 ### Available Examples
@@ -108,7 +108,7 @@ PYTHONPATH=src python3 uv run examples/<agent_name>.py
 #### 1. **Document Writer** (`examples/doc_writer.py`)
 Generate comprehensive documents using the DocWriterAgent.
 ```bash
-PYTHONPATH=src python3 uv run examples/doc_writer.py
+PYTHONPATH=src uv run python3 examples/doc_writer.py
 ```
 **Use case:** Creating detailed documents, reports, or content.
 
@@ -117,7 +117,7 @@ PYTHONPATH=src python3 uv run examples/doc_writer.py
 #### 2. **Paper Writing Team** (`examples/paper_writing_team.py`)
 Collaborate with a team of agents to write poems and related content using PaperWritingTeamAgent.
 ```bash
-PYTHONPATH=src python3 uv run examples/paper_writing_team.py
+PYTHONPATH=src uv run python3 examples/paper_writing_team.py
 ```
 **Use case:** Complex writing tasks requiring multiple perspectives (outlines, poems, documents).
 
@@ -126,7 +126,7 @@ PYTHONPATH=src python3 uv run examples/paper_writing_team.py
 #### 3. **Research Team** (`examples/research_team.py`)
 Research a topic using the ResearchTeamAgent with web search and scraping capabilities.
 ```bash
-PYTHONPATH=src python3 uv run examples/research_team.py
+PYTHONPATH=src uv run python3 examples/research_team.py
 ```
 **Use case:** In-depth research with web search and content extraction.
 
@@ -135,7 +135,7 @@ PYTHONPATH=src python3 uv run examples/research_team.py
 #### 4. **Web Search** (`examples/web_search.py`)
 Perform web searches using the SearchAgent.
 ```bash
-PYTHONPATH=src python3 uv run examples/web_search.py
+PYTHONPATH=src uv run python3 examples/web_search.py
 ```
 **Use case:** Finding information on the web, answering current event questions.
 
@@ -144,7 +144,7 @@ PYTHONPATH=src python3 uv run examples/web_search.py
 #### 5. **RAG (Retrieval-Augmented Generation)** (`examples/rag.py`)
 Load documents from URLs and prepare them for retrieval-augmented generation using RagAgent.
 ```bash
-PYTHONPATH=src python3 uv run examples/rag.py
+PYTHONPATH=src uv run python3 examples/rag.py
 ```
 **Use case:** Question-answering over specific documents or knowledge bases.
 
@@ -153,7 +153,7 @@ PYTHONPATH=src python3 uv run examples/rag.py
 #### 6. **Note Taker** (`examples/note_taker.py`)
 Take structured notes from content using NoteTakerAgent.
 ```bash
-PYTHONPATH=src python3 uv run examples/note_taker.py
+PYTHONPATH=src uv run python3 examples/note_taker.py
 ```
 **Use case:** Extracting key points and organizing information.
 
@@ -162,7 +162,7 @@ PYTHONPATH=src python3 uv run examples/note_taker.py
 #### 7. **Chart Generator** (`examples/chart_generator.py`)
 Generate charts and visualizations using ChartGeneratorAgent.
 ```bash
-PYTHONPATH=src python3 uv run examples/chart_generator.py
+PYTHONPATH=src uv run python3 examples/chart_generator.py
 ```
 **Use case:** Creating visual representations of data and trends.
 
@@ -171,7 +171,7 @@ PYTHONPATH=src python3 uv run examples/chart_generator.py
 #### 8. **Web Scraper** (`examples/web_scraper.py`)
 Scrape and extract content from web pages using WebScraperAgent.
 ```bash
-PYTHONPATH=src python3 uv run examples/web_scraper.py
+PYTHONPATH=src uv run python3 examples/web_scraper.py
 ```
 **Use case:** Extracting specific information from websites.
 
@@ -180,9 +180,17 @@ PYTHONPATH=src python3 uv run examples/web_scraper.py
 #### 9. **Math Agent** (`examples/math_agent.py`)
 Perform arithmetic operations using the MathAgent.
 ```bash
-PYTHONPATH=src python3 uv run examples/math_agent.py
+PYTHONPATH=src uv run python3 examples/math_agent.py
 ```
 **Use case:** Solving mathematical problems with addition and multiplication operations.
+
+---
+
+#### 10. **Summarization Agent** (`examples/summarization.py`)
+```bash
+PYTHONPATH=src uv run python3 examples/summarization.py
+```
+**Use case:** Summarization of long text.
 
 ---
 
@@ -191,7 +199,7 @@ To run all examples at once:
 ```bash
 for example in examples/*.py; do
     echo "Running $example..."
-    PYTHONPATH=src python3 uv run "$example"
+    PYTHONPATH=src uv run python3 "$example"
     echo "---"
 done
 ```
@@ -265,3 +273,65 @@ langgraph-agents/
 ├── uv.lock
 └── workspace/
 ```
+
+## Bug / Feature Request
+
+If you find a bug or the chatbot doesn't work as expected, please open an issue [here](https://github.com/nehalvaghasiya/langgraph-agents/issues/new) with:
+- Description of the issue
+- Steps to reproduce
+- Error messages or screenshots
+- Your environment details (OS, Python version)
+
+If you'd like to request a new feature, open an issue [here](https://github.com/nehalvaghasiya/langgraph-agents/issues/new) with:
+- Feature description
+- Use case and benefits
+- Example scenarios
+
+## Tech Stack
+
+This project is built with the following technologies:
+
+- **Python 3.10+** - Core programming language
+- **LangGraph** - Orchestration framework for multi-agent workflows
+- **LangChain** - LLM application framework with tool integration
+- **OpenAI API** - Language model integration
+- **Groq** - High-performance LLM inference
+- **Sentence Transformers** - Embedding models for semantic search
+- **BeautifulSoup4** - Web scraping and HTML parsing
+- **pytest** - Testing framework
+- **Ruff** - Fast Python linter and formatter
+
+## Contributing
+
+Contributions are welcome! If you'd like to contribute to this project:
+
+1. Fork the repository
+2. Create a new branch for your feature (`git checkout -b feature/amazing-feature`)
+3. Make your changes and add tests
+4. Ensure all tests pass (`pytest tests/`)
+5. Run the linter (`ruff check .`)
+6. Commit your changes (`git commit -m 'Add amazing feature'`)
+7. Push to your branch (`git push origin feature/amazing-feature`)
+8. Open a Pull Request
+
+For major changes, please open an issue first to discuss what you would like to change.
+
+## License
+
+This project is licensed under the MIT License. See the [LICENSE](LICENSE) file for details.
+
+## Credits
+
+This project is built on top of excellent open-source technologies:
+
+- **[LangChain](https://github.com/langchain-ai/langchain)** - Framework for developing applications powered by language models
+- **[LangGraph](https://github.com/langchain-ai/langgraph)** - Library for building stateful, multi-agent applications with LLMs
+- **[OpenAI](https://openai.com/)** - Advanced language model APIs
+- **[Groq](https://groq.com/)** - Ultra-fast LLM inference engine
+- **[Hugging Face Transformers](https://github.com/huggingface/transformers)** - State-of-the-art machine learning models
+
+Special thanks to the open-source community for these foundational tools.
+
+## Author
+
+**Nehal Vaghasiya**
