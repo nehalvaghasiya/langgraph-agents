@@ -198,10 +198,10 @@ def analyze_document(
     metadata = get_doc_metadata(text)
 
     return f"""Document Analysis:
-- Character count: {metadata['char_count']:,}
-- Estimated tokens: {metadata['estimated_tokens']:,}
-- Line count: {metadata['line_count']:,}
-- Paragraph count: {metadata['paragraph_count']:,}
+- Character count: {metadata["char_count"]:,}
+- Estimated tokens: {metadata["estimated_tokens"]:,}
+- Line count: {metadata["line_count"]:,}
+- Paragraph count: {metadata["paragraph_count"]:,}
 
 Recommended strategy:
 - Under {TOKEN_THRESHOLD_LONG:,} tokens: Direct summarization
